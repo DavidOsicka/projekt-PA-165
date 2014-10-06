@@ -35,7 +35,12 @@ public class HeroDAOImpl implements HeroDAO {
     }
 
     public Hero updateHero (Hero hero) {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(hero);
+        em.getTransaction().commit();
+        em.close();
+        return hero;
     }
 
     public Boolean deleteHero (Hero hero) {
