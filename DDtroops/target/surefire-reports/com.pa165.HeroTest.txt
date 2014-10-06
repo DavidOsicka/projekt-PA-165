@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.pa165.HeroTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.687 sec <<< FAILURE!
+createOneHero(com.pa165.HeroTest)  Time elapsed: 2.805 sec  <<< FAILURE!
+java.lang.UnsupportedOperationException: The application must supply JDBC connections
+	at org.hibernate.engine.jdbc.connections.internal.UserSuppliedConnectionProviderImpl.getConnection(UserSuppliedConnectionProviderImpl.java:61)
+	at org.hibernate.internal.AbstractSessionImpl$NonContextualJdbcConnectionAccess.obtainConnection(AbstractSessionImpl.java:380)
+	at org.hibernate.engine.jdbc.internal.LogicalConnectionImpl.obtainConnection(LogicalConnectionImpl.java:228)
+	at org.hibernate.engine.jdbc.internal.LogicalConnectionImpl.getConnection(LogicalConnectionImpl.java:171)
+	at org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction.doBegin(JdbcTransaction.java:67)
+	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.begin(AbstractTransactionImpl.java:162)
+	at org.hibernate.internal.SessionImpl.beginTransaction(SessionImpl.java:1435)
+	at org.hibernate.jpa.internal.TransactionImpl.begin(TransactionImpl.java:61)
+	at com.pa165.ddtroops.daoimpl.HeroDAOImpl.createHero(HeroDAOImpl.java:30)
+	at com.pa165.HeroTest.createOneHero(HeroTest.java:53)
