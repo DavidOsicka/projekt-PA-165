@@ -4,7 +4,9 @@ package com.pa165.ddtroops.dao;
 import com.pa165.ddtroops.entity.Role;
 import java.util.List;
 
-
+/**
+ * @author Martin Peška
+ */
 public interface RoleDAO {
 
     public Role createRole (Role role);

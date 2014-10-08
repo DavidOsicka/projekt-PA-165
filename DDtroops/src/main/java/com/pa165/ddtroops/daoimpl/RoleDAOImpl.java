@@ -22,9 +22,15 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public Role createRole (Role role) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(role);
-        em.getTransaction().commit();
+        
+        try{
+            em.getTransaction().begin();
+            em.persist(role);
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();
+        }
+        
         em.close();
         return role;
     }
@@ -32,32 +38,34 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public Role updateRole (Role role) {
         EntityManager em = emf.createEntityManager();
-        Role updateRole = em.find(Role.class, role.getId());
-        em.getTransaction().begin();
-        updateRole.setName(role.getName());
-        updateRole.setDescription(role.getDescription());
-        updateRole.setEnergy(role.getEnergy());
-        updateRole.setAttack(role.getAttack());
-        updateRole.setDefense(role.getDefense());
-        updateRole.setHeroes(role.getHeroes());
-        em.getTransaction().commit();
+        
+        try{
+            em.getTransaction().begin();
+            em.merge(role);
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();
+        }
         em.close();
-        return updateRole;
+        return role;
     }
 
     @Override
     public Boolean deleteRole (Role role) {
-        try {
-            EntityManager em = emf.createEntityManager();
-            Role deleteRole = em.find(Role.class, role.getId());
+        EntityManager em = emf.createEntityManager();
+        Role deleteRole = em.find(Role.class, role.getId());
+        
+        try {       
             em.getTransaction().begin();
             em.remove(deleteRole);
-            em.getTransaction().commit();
-            em.close();
-            return true;
+            em.getTransaction().commit();     
         } catch (Exception e) {
+            em.getTransaction().rollback();
+            em.close();
             return false;
         }
+        em.close();
+        return true;
     }
 
     @Override
