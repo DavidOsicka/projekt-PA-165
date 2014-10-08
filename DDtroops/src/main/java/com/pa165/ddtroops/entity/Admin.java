@@ -14,6 +14,10 @@ import javax.persistence.Id;
  * Represents Admin entity in D&D troops. Admin has attributes as name, roleDAO, heroDAO. TroopDAO.
  * Admin manages all entities.
  */
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 @Entity
 public class Admin {
 
@@ -24,10 +28,48 @@ public class Admin {
     @Column(nullable = false, unique = false)
     private String name;
     
+<<<<<<< HEAD
 
     public Admin () {
     }
  
+=======
+    //vyresit jake anotace? jestli nejake? a jestli ma smysl tyto zde mit 
+   // @Column(nullable = false)
+    //private RoleDAOImpl roleDAO;
+    //@Column(nullable = false)
+    //private HeroDAOImpl heroDAO;
+    //@Column(nullable = false)
+    //private TroopDAOImpl troopDAO;
+
+    public Admin () {
+    }
+    /*
+    public RoleDAOImpl getRoleDAO() {
+        return roleDAO;
+    }
+
+    public void setRoleDAO(RoleDAOImpl roleDAO) {
+        this.roleDAO = roleDAO;
+    }
+
+    public HeroDAOImpl getHeroDAO() {
+        return heroDAO;
+    }
+
+    public void setHeroDAO(HeroDAOImpl heroDAO) {
+        this.heroDAO = heroDAO;
+    }
+    public TroopDAOImpl getTroopDAO() {
+        return troopDAO;
+    }
+
+    public void setTroopDAO(TroopDAOImpl troopDAO) {
+        this.troopDAO = troopDAO;
+    }
+
+    */
+>>>>>>> origin/master
     public long getId () {
         return id;
     }
