@@ -4,7 +4,9 @@ package com.pa165.ddtroops.dao;
 import com.pa165.ddtroops.entity.Admin;
 import java.util.List;
 
-
+/**
+ * @author Jakub Kovařík 
+ */
 public interface AdminDAO {
 
     public Admin createAdmin (Admin admin);
