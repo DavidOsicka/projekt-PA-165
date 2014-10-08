@@ -9,9 +9,6 @@ package com.pa165;
 import com.pa165.ddtroops.dao.AdminDAO;
 import com.pa165.ddtroops.daoimpl.AdminDAOImpl;
 import com.pa165.ddtroops.entity.Admin;
-import com.pa165.ddtroops.entity.Role;
-import java.util.Date;
-import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 

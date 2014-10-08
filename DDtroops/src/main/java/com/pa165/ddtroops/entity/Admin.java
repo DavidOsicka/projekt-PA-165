@@ -4,6 +4,7 @@ import com.pa165.ddtroops.daoimpl.HeroDAOImpl;
 import com.pa165.ddtroops.daoimpl.RoleDAOImpl;
 import com.pa165.ddtroops.daoimpl.TroopDAOImpl;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -13,48 +14,20 @@ import javax.persistence.Id;
  * Represents Admin entity in D&D troops. Admin has attributes as name, roleDAO, heroDAO. TroopDAO.
  * Admin manages all entities.
  */
+@Entity
 public class Admin {
 
     @Id
     @GeneratedValue
     private long id;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String name;
     
-    //vyresit jake anotace? jestli nejake? a jestli ma smysl tyto zde mit 
-    private RoleDAOImpl roleDAO;
-    private HeroDAOImpl heroDAO;
-    private TroopDAOImpl troopDAO;
 
     public Admin () {
     }
-    
-    public RoleDAOImpl getRoleDAO() {
-        return roleDAO;
-    }
-
-    public void setRoleDAO(RoleDAOImpl roleDAO) {
-        this.roleDAO = roleDAO;
-    }
-
-    public HeroDAOImpl getHeroDAO() {
-        return heroDAO;
-    }
-
-    public void setHeroDAO(HeroDAOImpl heroDAO) {
-        this.heroDAO = heroDAO;
-    }
-
-    public TroopDAOImpl getTroopDAO() {
-        return troopDAO;
-    }
-
-    public void setTroopDAO(TroopDAOImpl troopDAO) {
-        this.troopDAO = troopDAO;
-    }
-
-    
+ 
     public long getId () {
         return id;
     }
