@@ -5,6 +5,7 @@
  */
 package com.pa165;
 
+import com.pa165.ddtroops.dao.HeroDAO;
 import com.pa165.ddtroops.daoimpl.HeroDAOImpl;
 import com.pa165.ddtroops.entity.Hero;
 import java.util.List;
@@ -50,7 +51,7 @@ public class HeroTest {
                 h.setName("Ozak");
                 h.setXp(1000);
                 h.setRace("orc");
-                HeroDAOImpl impl = new HeroDAOImpl();
+                HeroDAO impl = new HeroDAOImpl();
                 impl.createHero(h);
                 System.out.println("Hrdina se jménem: " + h.getName() + " má ID: " + h.getId());
 	}
