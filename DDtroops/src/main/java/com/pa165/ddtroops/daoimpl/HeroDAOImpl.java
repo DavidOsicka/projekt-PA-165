@@ -36,27 +36,50 @@ public class HeroDAOImpl implements HeroDAO {
 
     public Hero updateHero (Hero hero) {
         EntityManager em = emf.createEntityManager();
+        Hero updateHero = em.find(Hero.class, hero.getId());
         em.getTransaction().begin();
-        em.persist(hero);
+        updateHero.setName(hero.getName());
+        updateHero.setRole(hero.getRole());
+        updateHero.setTroop(hero.getTroop());
+        updateHero.setXp(hero.getXp());
         em.getTransaction().commit();
         em.close();
-        return hero;
+        return updateHero;
     }
 
     public Boolean deleteHero (Hero hero) {
-        return null;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Hero deleteHero = em.find(Hero.class, hero.getId());
+            em.getTransaction().begin();
+            em.remove(deleteHero);
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public List<Hero> retrieveAllHeroes () {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        List<Hero> allHeroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
+	em.close();
+        return allHeroes;
     }
 
     public Hero retrieveHeroById (long id) {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Hero heroById = em.find(Hero.class, id);
+        em.close();
+        return heroById;
     }
 
     public Hero retrieveHeroByName (String name) {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE name=:name", Hero.class).setParameter("name", name).getSingleResult();
+        em.close();
+        return heroByName;
     }
 
 }
