@@ -8,26 +8,22 @@ package com.pa165;
 import com.pa165.ddtroops.dao.HeroDAO;
 import com.pa165.ddtroops.daoimpl.HeroDAOImpl;
 import com.pa165.ddtroops.entity.Hero;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import org.testng.Assert;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
 /**
  *
- * @author Jakub
+ * @author Martin Jelinek
  */
 public class HeroTest {
     
-    public HeroTest() {
-    }
+    private final HeroDAOImpl heroDAO;
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    public HeroTest() {
+        heroDAO = new HeroDAOImpl();
+    }
 
     @org.testng.annotations.BeforeClass
     public static void setUpClass() throws Exception {
@@ -44,15 +40,75 @@ public class HeroTest {
     @org.testng.annotations.AfterMethod
     public void tearDownMethod() throws Exception {
     }
+
+    private Hero getDummyHero() {
+        Hero h = new Hero();
+        h.setName("Ozak" + new Date().getTime());
+        h.setRace("Orc");
+        h.setXp(1000);
+        return h;
+    }
+    
+    private Hero insertBasicHero() {
+        Hero h = getDummyHero();
+        heroDAO.createHero(h);
+        return h;
+    }
     
     @Test
-	public void createOneHero(){
-		Hero h = new Hero();
-                h.setName("Ozak");
-                h.setXp(1000);
-                h.setRace("orc");
-                HeroDAO impl = new HeroDAOImpl();
-                impl.createHero(h);
-                System.out.println("Hrdina se jménem: " + h.getName() + " má ID: " + h.getId());
-	}
+    public void createHero() {
+        Hero h = insertBasicHero();
+        assertEquals(heroDAO.retrieveHeroById(h.getId()), h, "Hero is not correctly inserted");
+    }
+    
+    @Test
+    public void updateHero() {
+        Hero h = insertBasicHero();
+        h.setName("Odin");
+        h.setXp(100000);
+        heroDAO.updateHero(h);
+        Hero dbHero = heroDAO.retrieveHeroById(h.getId());
+        assertEquals(dbHero.getName(), "Odin");
+        assertEquals(dbHero.getXp(), 100000);
+    }
+    
+    @Test
+    public void deleteHero() {
+        Hero h = insertBasicHero();
+        heroDAO.deleteHero(h);
+        assertNull(heroDAO.retrieveHeroById(h.getId()));
+    }
+    
+    @Test
+    public void retrieveHeroById() {
+        Hero h = insertBasicHero();
+        Hero dbHero = heroDAO.retrieveHeroById(h.getId());
+        assertNotNull(dbHero);
+    }
+    
+    @Test
+    public void retrieveHeroByName() {
+        Hero h = getDummyHero();
+        h.setName("Special named hero");
+        heroDAO.createHero(h);
+        Hero dbHero = heroDAO.retrieveHeroByName("Special named hero");
+        assertNotNull(dbHero);
+    }
+    
+    @Test
+    public void retrieveAllHeroes() {
+        List<Hero> allHeroes = heroDAO.retrieveAllHeroes();
+        for (Hero oldHero : allHeroes) {
+            heroDAO.deleteHero(oldHero);
+        }
+        
+        allHeroes = heroDAO.retrieveAllHeroes();
+        assertEquals(0, allHeroes.size());
+        
+        for (int i = 0; i < 10; i++) {
+            insertBasicHero();
+        }
+        allHeroes = heroDAO.retrieveAllHeroes();
+        assertEquals(10, allHeroes.size());
+    }
 }

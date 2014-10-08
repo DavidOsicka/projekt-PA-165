@@ -87,7 +87,7 @@ public class HeroDAOImpl implements HeroDAO {
     @Override
     public Hero retrieveHeroByName (String name) {
         EntityManager em = emf.createEntityManager();
-        Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE name=:name", Hero.class).setParameter("name", name).getSingleResult();
+        Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE h.name=:name", Hero.class).setParameter("name", name).getSingleResult();
         em.close();
         return heroByName;
     }

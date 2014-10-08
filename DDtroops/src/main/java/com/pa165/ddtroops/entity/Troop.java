@@ -1,23 +1,35 @@
 package com.pa165.ddtroops.entity;
 
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ *
+ * @author Martin Jelinek
+ * 
+ * Represent one D&D troop. Hero has atributes as name, mission and amount of golden money.
+ * Every troup constists of several heroes.
+ */
 @Entity
 public class Troop {
     @Id
     @GeneratedValue
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false)
     private String mission;
 
+    @Column(nullable = false)
     private long amountOfGM;
-    @OneToMany(mappedBy="troop")
+    
+    @OneToMany(mappedBy = "troop")
     private Set<Hero> heroes;
 
     public Troop () {
@@ -63,5 +75,24 @@ public class Troop {
         this.name = val;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Troop other = (Troop) obj;
+        
+        return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
 }
 
