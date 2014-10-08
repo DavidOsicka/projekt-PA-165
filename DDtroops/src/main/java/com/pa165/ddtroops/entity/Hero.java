@@ -32,6 +32,9 @@ public class Hero {
 
     @ManyToOne
     private Troop troop = null;
+    
+    @Column(nullable=false)
+    private String race;
 
     public Hero () {
     }
@@ -74,6 +77,14 @@ public class Hero {
 
     public void setXp (int val) {
         this.xp = val;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
     }
 
     @Override

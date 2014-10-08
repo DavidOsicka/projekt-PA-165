@@ -10,6 +10,10 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ *
+ * @author Jakub Szotkowski
+ */
 @ContextConfiguration(classes=DaoContext.class)
 public class HeroDAOImpl implements HeroDAO {
 
@@ -21,8 +25,8 @@ public class HeroDAOImpl implements HeroDAO {
 
     /**
      *
-     * @param hero
-     * @return
+     * @param hero hero to save in database
+     * @return created hero in database
      */
     @Override
     public Hero createHero (Hero hero) {
@@ -34,6 +38,7 @@ public class HeroDAOImpl implements HeroDAO {
         return hero;
     }
 
+    @Override
     public Hero updateHero (Hero hero) {
         EntityManager em = emf.createEntityManager();
         Hero updateHero = em.find(Hero.class, hero.getId());
@@ -42,11 +47,13 @@ public class HeroDAOImpl implements HeroDAO {
         updateHero.setRole(hero.getRole());
         updateHero.setTroop(hero.getTroop());
         updateHero.setXp(hero.getXp());
+        updateHero.setRace(hero.getRace());
         em.getTransaction().commit();
         em.close();
         return updateHero;
     }
 
+    @Override
     public Boolean deleteHero (Hero hero) {
         try {
             EntityManager em = emf.createEntityManager();
@@ -61,6 +68,7 @@ public class HeroDAOImpl implements HeroDAO {
         }
     }
 
+    @Override
     public List<Hero> retrieveAllHeroes () {
         EntityManager em = emf.createEntityManager();
         List<Hero> allHeroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
@@ -68,6 +76,7 @@ public class HeroDAOImpl implements HeroDAO {
         return allHeroes;
     }
 
+    @Override
     public Hero retrieveHeroById (long id) {
         EntityManager em = emf.createEntityManager();
         Hero heroById = em.find(Hero.class, id);
@@ -75,6 +84,7 @@ public class HeroDAOImpl implements HeroDAO {
         return heroById;
     }
 
+    @Override
     public Hero retrieveHeroByName (String name) {
         EntityManager em = emf.createEntityManager();
         Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE name=:name", Hero.class).setParameter("name", name).getSingleResult();

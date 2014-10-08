@@ -49,6 +49,7 @@ public class HeroTest {
 		Hero h = new Hero();
                 h.setName("Ozak");
                 h.setXp(1000);
+                h.setRace("orc");
                 HeroDAOImpl impl = new HeroDAOImpl();
                 impl.createHero(h);
                 System.out.println("Hrdina se jménem: " + h.getName() + " má ID: " + h.getId());
