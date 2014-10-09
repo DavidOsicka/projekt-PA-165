@@ -10,6 +10,7 @@ import com.pa165.ddtroops.dao.RoleDAO;
 import com.pa165.ddtroops.daoimpl.RoleDAOImpl;
 import com.pa165.ddtroops.entity.Role;
 import java.util.List;
+import java.util.Random;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,7 +27,7 @@ public class RoleTest {
     
     private Role createTestRole(){
         Role role = new Role();
-        role.setName("Crazy wizard");
+        role.setName("Crazy wizard "+ new Random().nextInt());
         role.setDescription("Description of the role");
         role.setDefense(100);
         role.setAttack(20);

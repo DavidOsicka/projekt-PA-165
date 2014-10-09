@@ -9,6 +9,7 @@ package com.pa165;
 import com.pa165.ddtroops.dao.AdminDAO;
 import com.pa165.ddtroops.daoimpl.AdminDAOImpl;
 import com.pa165.ddtroops.entity.Admin;
+import java.util.Random;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
@@ -25,7 +26,7 @@ public class AdminTest {
     
     private Admin createTestSubject(){
         Admin admin = new Admin();
-        admin.setName("Don Admini");
+        admin.setName("Don Admini " + new Random().nextInt());
         return admin;
     }
     
