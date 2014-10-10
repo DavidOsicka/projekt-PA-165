@@ -10,6 +10,12 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import org.springframework.test.context.ContextConfiguration;
 
+
+/**
+ * @author Martin Peška
+ * 
+ * Class RoleDAOImpl implements RoleDAO interface
+ */
 @ContextConfiguration(classes=DaoContext.class)
 public class RoleDAOImpl implements RoleDAO {
 

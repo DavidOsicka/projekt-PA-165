@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 /** 
  * @author Martin Peška
  * 
- * Represents role entity in D&D troops. Hero has following attributes: name, 
+ * Represents role entity in D&D troops. Role has following attributes: name, 
  * description, energy, attack, defense and  set of heroes with the role.
  */
 @Entity

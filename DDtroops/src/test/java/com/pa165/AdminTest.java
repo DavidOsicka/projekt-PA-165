@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 /**
  * @author Martin Peška
  * 
+ * Class AdminTest contains tests for CRUD operations 
  */
 public class AdminTest {
     private final AdminDAO adminDAO;
