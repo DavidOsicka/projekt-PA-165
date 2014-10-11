@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 /**
  *
  * @author Jakub Szotkowski
+ * 
+ * Implementation of HeroDao interface.
  */
 @ContextConfiguration(classes=DaoContext.class)
 public class HeroDAOImpl implements HeroDAO {
@@ -23,17 +25,16 @@ public class HeroDAOImpl implements HeroDAO {
     public HeroDAOImpl () {
     }
 
-    /**
-     *
-     * @param hero hero to save in database
-     * @return created hero in database
-     */
     @Override
     public Hero createHero (Hero hero) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(hero);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(hero);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
         em.close();
         return hero;
     }
@@ -42,28 +43,30 @@ public class HeroDAOImpl implements HeroDAO {
     public Hero updateHero (Hero hero) {
         EntityManager em = emf.createEntityManager();
         Hero updateHero = em.find(Hero.class, hero.getId());
-        em.getTransaction().begin();
-        updateHero.setName(hero.getName());
-        updateHero.setRole(hero.getRole());
-        updateHero.setTroop(hero.getTroop());
-        updateHero.setXp(hero.getXp());
-        updateHero.setRace(hero.getRace());
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.merge(hero);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
         em.close();
         return updateHero;
     }
 
     @Override
     public Boolean deleteHero (Hero hero) {
+        EntityManager em = emf.createEntityManager();
+        Hero deleteHero = em.find(Hero.class, hero.getId());
         try {
-            EntityManager em = emf.createEntityManager();
-            Hero deleteHero = em.find(Hero.class, hero.getId());
             em.getTransaction().begin();
             em.remove(deleteHero);
             em.getTransaction().commit();
             em.close();
             return true;
         } catch (Exception e) {
+            em.getTransaction().rollback();
+            em.close();
             return false;
         }
     }

@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
  *
  * @author Jakub Szotkowski
  * 
- * Represent one hero from D&D troop. Hero has atributes as name, xp, roles and his troop.
+ * Represent one hero from D&D troop. Hero has atributes as name, xp, roles, race and his troop.
  */
 @Entity
 public class Hero {

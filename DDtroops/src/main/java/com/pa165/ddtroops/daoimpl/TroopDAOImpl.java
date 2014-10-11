@@ -66,6 +66,7 @@ public class TroopDAOImpl implements TroopDAO {
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
+            em.close();
             return false;
         }
         em.close();

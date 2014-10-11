@@ -24,6 +24,8 @@ import org.testng.annotations.Test;
 /**
  *
  * @author Jakub Szotkowski
+ * 
+ * Test class for CRUD operations with TroopDAO
  */
 public class TroopTest {
     
@@ -32,12 +34,6 @@ public class TroopTest {
     public TroopTest() {
         troopDao = new TroopDAOImpl();
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 
     @BeforeClass
     public static void setUpClass() throws Exception {
