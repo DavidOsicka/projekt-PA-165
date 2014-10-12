@@ -15,7 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- *
+ * This class is testing DAO implementation for role entity.
  * @author Jakub Kovařík
  */
 public class RoleTest {
@@ -36,11 +36,6 @@ public class RoleTest {
         return role;
     }
     
-    private void clearRoleDAO(){
-        for(Role r : this.roleDAO.retrieveAllRoles()){
-            this.roleDAO.deleteRole(r);
-        }
-    }
     
     private Role createSingleRole(){
         Role role = createTestRole();
@@ -107,7 +102,6 @@ public class RoleTest {
         Role role = createTestRole();
         role.setName("Alfamale");
         roleDAO.createRole(role);
-        
         Role dbRole = roleDAO.retrieveRoleByName("Alfamale");
         Assert.assertNotNull(dbRole);
     }

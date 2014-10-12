@@ -11,7 +11,7 @@ import javax.persistence.Id;
 /** 
  * @author Jakub Kovařík
  * 
- * Represents Admin entity in D&D troops. Admin has attributes as name, roleDAO, heroDAO. TroopDAO.
+ * Represents Admin entity in D&D troops. Admin has attribute name.
  * Admin manages all entities.
  */
 

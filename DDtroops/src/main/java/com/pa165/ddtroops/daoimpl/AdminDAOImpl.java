@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * 
+ * Implementation of AdminDAO interface.
  * @author Jakub Kovařík
  */
 
@@ -91,7 +91,6 @@ public class AdminDAOImpl implements AdminDAO {
     @Override
     public Admin retrieveAdminByName (String name) {
         EntityManager em = emf.createEntityManager();
-        //Admin adminByName = em.find(Admin.class, name);
         Admin adminByName = em.createQuery("SELECT a FROM Admin a WHERE name=:name",Admin.class).setParameter("name", name).getSingleResult();
         em.close();
         return adminByName;
