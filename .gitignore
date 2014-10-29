@@ -1,2 +1,5 @@
 target
-/DDtroops/derby.log
+/DDtroops-Core/derby.log
+/DDtroops-DaoLayer/derby.log
+/DDtroops-ServiceLayer/derby.log
+/../derby.log
