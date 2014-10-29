@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          
+    <mapping>
+        <class-a>com.pa165.ddtroops.dto.AdminDTO</class-a>
+        <class-b>com.pa165.ddtroops.entity.Admin</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.pa165.ddtroops.dto.HeroDTO</class-a>
+        <class-b>com.pa165.ddtroops.entity.Hero</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.pa165.ddtroops.dto.RoleDTO</class-a>
+        <class-b>com.pa165.ddtroops.entity.Role</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.pa165.ddtroops.dto.TroopDTO</class-a>
+        <class-b>com.pa165.ddtroops.entity.Troop</class-b>
+    </mapping>
+</mappings>
