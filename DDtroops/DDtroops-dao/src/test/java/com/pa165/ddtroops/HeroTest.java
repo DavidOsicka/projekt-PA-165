@@ -6,10 +6,16 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.HeroDAO;
-import com.pa165.ddtroops.daoimpl.HeroDAOImpl;
 import com.pa165.ddtroops.entity.Hero;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
@@ -17,28 +23,14 @@ import org.testng.annotations.Test;
  *
  * @author Martin Jelínek
  */
-public class HeroTest {
-    
-    /*private final HeroDAO heroDAO;
+@Transactional
+@ContextConfiguration("file:src/test/resources/applicationContext-dao-test.xml")
+@TestExecutionListeners({TransactionalTestExecutionListener.class})
+public class HeroTest extends AbstractTestNGSpringContextTests{
+    @Autowired
+    private HeroDAO heroDAO;
 
     public HeroTest() {
-        heroDAO = new HeroDAOImpl();
-    }
-
-    @org.testng.annotations.BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @org.testng.annotations.AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @org.testng.annotations.BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @org.testng.annotations.AfterMethod
-    public void tearDownMethod() throws Exception {
     }
 
     private Hero getDummyHero() {
@@ -110,5 +102,16 @@ public class HeroTest {
         }
         allHeroes = heroDAO.retrieveAllHeroes();
         assertEquals(10, allHeroes.size());
-    }*/
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void isThrowingDataAccessException() {
+        Hero h = this.getDummyHero();
+        h.setName("Same name");
+        Hero h2= this.getDummyHero();
+        h2.setName("Same name");
+        
+        this.heroDAO.createHero(h);
+        this.heroDAO.createHero(h2);
+    }
 }

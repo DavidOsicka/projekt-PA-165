@@ -7,18 +7,17 @@ package com.pa165.ddtroops;
 
 
 import com.pa165.ddtroops.dao.TroopDAO;
-import com.pa165.ddtroops.daoimpl.TroopDAOImpl;
 import com.pa165.ddtroops.entity.Troop;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import static org.testng.Assert.*;
-import org.testng.annotations.Test;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -27,28 +26,14 @@ import org.testng.annotations.Test;
  * 
  * Test class for CRUD operations with TroopDAO
  */
-public class TroopTest {
-    
-    /*private static TroopDAO troopDao;
+@Transactional
+@ContextConfiguration("file:src/test/resources/applicationContext-dao-test.xml")
+@TestExecutionListeners({TransactionalTestExecutionListener.class})
+public class TroopTest extends AbstractTestNGSpringContextTests{
+    @Autowired
+    private TroopDAO troopDao;
     
     public TroopTest() {
-        troopDao = new TroopDAOImpl();
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void tearDownMethod() throws Exception {
     }
     
     private Troop createStartTroop() {
@@ -121,5 +106,16 @@ public class TroopTest {
         troopDao.createTroop(t);
         Troop dbTroop = troopDao.retrieveTroopByName("Croosters");
         Assert.assertNotNull(dbTroop);
-    }*/
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void isThrowingDataAccessException() {
+        Troop troop = this.createStartTroop();
+        troop.setName("Same name");
+        Troop troop2 = this.createStartTroop();
+        troop2.setName("Same name");
+        
+        this.troopDao.createTroop(troop);
+        this.troopDao.createTroop(troop2);
+    }
 }

@@ -7,10 +7,16 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.RoleDAO;
-import com.pa165.ddtroops.daoimpl.RoleDAOImpl;
 import com.pa165.ddtroops.entity.Role;
 import java.util.List;
 import java.util.Random;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,11 +24,14 @@ import org.testng.annotations.Test;
  * This class is testing DAO implementation for role entity.
  * @author Jakub Kovařík
  */
-public class RoleTest {
-    /*private final RoleDAO roleDAO;
+@Transactional
+@ContextConfiguration("file:src/test/resources/applicationContext-dao-test.xml")
+@TestExecutionListeners({TransactionalTestExecutionListener.class})
+public class RoleTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private RoleDAO roleDAO;
     
     public RoleTest(){
-        this.roleDAO = new RoleDAOImpl();
     }
     
     private Role createTestRole(){
@@ -104,7 +113,17 @@ public class RoleTest {
         roleDAO.createRole(role);
         Role dbRole = roleDAO.retrieveRoleByName("Alfamale");
         Assert.assertNotNull(dbRole);
-    }*/
+    }
     
+    @Test(expectedExceptions = DataAccessException.class)
+    public void isThrowingDataAccessException() {
+        Role role= this.createTestRole();
+        role.setName("Same name");
+        Role role2 = this.createTestRole();
+        role2.setName("Same name");
+        
+        this.roleDAO.createRole(role);
+        this.roleDAO.createRole(role2);
+    }
     
 }

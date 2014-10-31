@@ -5,11 +5,10 @@ import com.pa165.ddtroops.dao.HeroDAO;
 import com.pa165.ddtroops.entity.Hero;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -17,7 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
  * 
  * Implementation of HeroDao interface.
  */
-//@ContextConfiguration(classes=DaoContext.class)
+@Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class HeroDAOImpl implements HeroDAO {
 
     //@PersistenceUnit
@@ -30,71 +30,42 @@ public class HeroDAOImpl implements HeroDAO {
 
     @Override
     public Hero createHero (Hero hero) {
-        //EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(hero);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-        em.close();
+        em.persist(hero);
         return hero;
     }
 
     @Override
-    public Hero updateHero (Hero hero) {
-        //EntityManager em = emf.createEntityManager();
-        Hero updateHero = em.find(Hero.class, hero.getId());
-        try {
-            em.getTransaction().begin();
-            em.merge(hero);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-        em.close();
-        return updateHero;
+    public Hero updateHero (Hero hero) {        
+        em.merge(hero); 
+        return hero;
     }
 
     @Override
     public Boolean deleteHero (Hero hero) {
-        //EntityManager em = emf.createEntityManager();
         Hero deleteHero = em.find(Hero.class, hero.getId());
         try {
-            em.getTransaction().begin();
             em.remove(deleteHero);
-            em.getTransaction().commit();
-            em.close();
-            return true;
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.close();
             return false;
         }
+        return true;
     }
 
     @Override
     public List<Hero> retrieveAllHeroes () {
-        //EntityManager em = emf.createEntityManager();
         List<Hero> allHeroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
-	em.close();
         return allHeroes;
     }
 
     @Override
     public Hero retrieveHeroById (long id) {
-        //EntityManager em = emf.createEntityManager();
         Hero heroById = em.find(Hero.class, id);
-        em.close();
         return heroById;
     }
 
     @Override
     public Hero retrieveHeroByName (String name) {
-        //EntityManager em = emf.createEntityManager();
         Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE h.name=:name", Hero.class).setParameter("name", name).getSingleResult();
-        em.close();
         return heroByName;
     }
 
