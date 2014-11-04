@@ -78,4 +78,26 @@ public class RoleDTO implements Serializable {
         this.defense = defense;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RoleDTO other = (RoleDTO) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
 }
