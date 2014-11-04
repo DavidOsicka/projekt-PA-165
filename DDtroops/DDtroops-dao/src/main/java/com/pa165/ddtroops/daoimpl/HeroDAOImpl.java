@@ -20,8 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.MANDATORY)
 public class HeroDAOImpl implements HeroDAO {
 
-    //@PersistenceUnit
-    //public EntityManagerFactory emf = Persistence.createEntityManagerFactory("myUnit");
+    
     @PersistenceContext
     private EntityManager em;
     
