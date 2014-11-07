@@ -30,6 +30,13 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminDAO adminDAO;
     
+    public AdminServiceImpl() { }
+    
+    public AdminServiceImpl(AdminDAO adminDAO, Mapper mapper) {
+        this.adminDAO = adminDAO;
+        this.mapper = mapper;
+    }
+    
     private AdminDTO mapDTO(Admin admin) {
         return mapper == null ? null : mapper.map(admin, AdminDTO.class);
     }

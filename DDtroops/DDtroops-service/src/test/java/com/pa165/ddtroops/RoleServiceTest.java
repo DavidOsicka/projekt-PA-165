@@ -21,6 +21,7 @@ import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -33,10 +34,11 @@ import org.testng.annotations.Test;
  * 
  * Test class for testing Role service
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext-service.xml"})
+@DirtiesContext
+@ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class RoleServiceTest extends AbstractTestNGSpringContextTests{
     
-    @InjectMocks       
+    //@InjectMocks       
     RoleServiceImpl roleService;
    
     @Mock
@@ -49,6 +51,7 @@ public class RoleServiceTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     private void start(){
         initMocks(this);
+        roleService = new RoleServiceImpl(mapper, roleDao);
         Role role = createNewRole();
         Mockito.when(roleDao.createRole(role)).thenAnswer(new Answer<Role>() {
 

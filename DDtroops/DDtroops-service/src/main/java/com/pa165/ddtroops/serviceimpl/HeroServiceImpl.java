@@ -32,6 +32,13 @@ public class HeroServiceImpl implements HeroService{
     @Autowired
     private HeroDAO heroDao;
     
+    public HeroServiceImpl() { }
+    
+    public HeroServiceImpl(HeroDAO heroDao, Mapper mapper) {
+        this.heroDao = heroDao;
+        this.mapper = mapper;
+    }
+    
     private HeroDTO mapDTO(Hero hero) {
         return mapper == null ? null : mapper.map(hero, HeroDTO.class);
     }

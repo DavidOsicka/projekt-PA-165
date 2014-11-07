@@ -27,16 +27,18 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.mockito.MockitoAnnotations.*;
+import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * @author Martin Jelínek and Jakub Szotkowski
  * 
  * Test class for testing Admin service 
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext-service.xml"})
+@DirtiesContext
+@ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class AdminServiceTest extends AbstractTestNGSpringContextTests {
     
-    @InjectMocks
+    //@InjectMocks
     private AdminServiceImpl adminService;
     
     @Mock
@@ -49,6 +51,7 @@ public class AdminServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void initMocksObject() {
         initMocks(this);
+        adminService = new AdminServiceImpl(adminDAO, mapper);
         Admin admin = createNewAdmin();
         Mockito.when(adminDAO.createAdmin(admin)).thenAnswer(new Answer<Admin>() {
            

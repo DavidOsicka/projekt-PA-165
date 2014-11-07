@@ -21,6 +21,7 @@ import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -33,10 +34,11 @@ import org.testng.annotations.Test;
  * 
  * Test class for testing Troop service
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext-service.xml"})
+@DirtiesContext
+@ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class TroopServiceTest extends AbstractTestNGSpringContextTests{
     
-    @InjectMocks       
+    //@InjectMocks       
     TroopServiceImpl troopService;
    
     @Mock
@@ -49,6 +51,7 @@ public class TroopServiceTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     private void start(){
         initMocks(this);
+        troopService = new TroopServiceImpl(mapper, troopDao);
         Troop troop = createNewTroop();
         Mockito.when(troopDao.createTroop(troop)).thenAnswer(new Answer<Troop>() {
 

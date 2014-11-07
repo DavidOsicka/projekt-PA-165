@@ -31,6 +31,14 @@ public class TroopServiceImpl implements TroopService {
     
     @Autowired
     private TroopDAO troopDao;
+
+    public TroopServiceImpl() {
+    }
+
+    public TroopServiceImpl(Mapper mapper, TroopDAO troopDao) {
+        this.mapper = mapper;
+        this.troopDao = troopDao;
+    }
     
     private TroopDTO mapDTO(Troop troop) {
         return mapper == null ? null : mapper.map(troop, TroopDTO.class);

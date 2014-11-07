@@ -31,6 +31,14 @@ public class RoleServiceImpl implements RoleService{
     
     @Autowired
     private RoleDAO roleDao;
+
+    public RoleServiceImpl() {
+    }
+
+    public RoleServiceImpl(Mapper mapper, RoleDAO roleDao) {
+        this.mapper = mapper;
+        this.roleDao = roleDao;
+    }
     
     private RoleDTO mapDTO(Role role) {
         return mapper == null ? null : mapper.map(role, RoleDTO.class);
