@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class TroopServiceTest extends AbstractTestNGSpringContextTests{
     
-    //@InjectMocks       
+    @InjectMocks   
     TroopServiceImpl troopService;
    
     @Mock
@@ -51,7 +51,6 @@ public class TroopServiceTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     private void start(){
         initMocks(this);
-        troopService = new TroopServiceImpl(mapper, troopDao);
         Troop troop = createNewTroop();
         Mockito.when(troopDao.createTroop(troop)).thenAnswer(new Answer<Troop>() {
 

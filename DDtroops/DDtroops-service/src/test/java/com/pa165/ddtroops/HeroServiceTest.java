@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class HeroServiceTest extends AbstractTestNGSpringContextTests {
     
-    //@InjectMocks       
+    @InjectMocks       
     HeroServiceImpl heroService;
    
     @Mock
@@ -51,7 +51,6 @@ public class HeroServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     private void start(){
         initMocks(this);
-        heroService = new HeroServiceImpl(heroDao, mapper);
         Hero h = createNewHero();
         Mockito.when(heroDao.createHero(h)).thenAnswer(new Answer<Hero>() {
 

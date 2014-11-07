@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = {"classpath:/applicationContext-service-test.xml"})
 public class RoleServiceTest extends AbstractTestNGSpringContextTests{
     
-    //@InjectMocks       
+    @InjectMocks       
     RoleServiceImpl roleService;
    
     @Mock
@@ -51,7 +51,6 @@ public class RoleServiceTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     private void start(){
         initMocks(this);
-        roleService = new RoleServiceImpl(mapper, roleDao);
         Role role = createNewRole();
         Mockito.when(roleDao.createRole(role)).thenAnswer(new Answer<Role>() {
 
