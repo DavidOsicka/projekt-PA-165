@@ -7,17 +7,15 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.AdminDAO;
-import com.pa165.ddtroops.daoimpl.AdminDAOImpl;
 import com.pa165.ddtroops.dto.AdminDTO;
 import com.pa165.ddtroops.entity.Admin;
-import com.pa165.ddtroops.service.AdminService;
 import com.pa165.ddtroops.serviceimpl.AdminServiceImpl;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import org.dozer.Mapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import static org.mockito.Matchers.*;
@@ -25,16 +23,17 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import static org.testng.Assert.*;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.mockito.MockitoAnnotations.*;
 
 /**
- * @author Martin Peška
+ * @author Martin Jelínek and Jakub Szotkowski
  * 
- * Class AdminTest contains tests for CRUD operations 
+ * Test class for testing Admin service 
  */
-@ContextConfiguration("file:src/main/resources/applicationContext-service.xml")
+@ContextConfiguration(locations = {"classpath:/applicationContext-service.xml"})
 public class AdminServiceTest extends AbstractTestNGSpringContextTests {
     
     @InjectMocks
@@ -48,27 +47,11 @@ public class AdminServiceTest extends AbstractTestNGSpringContextTests {
     private Mapper mapper;
     
     @BeforeMethod
-    public void initMocks() {
-        MockitoAnnotations.initMocks(this);
-    }
-    
-    private AdminDTO createTestSubject(){
-        AdminDTO admin = new AdminDTO();
-        admin.setName("Don Admini " + new Random().nextInt());
-        return admin;
-    }
-    
-//    private void clearAdminDAO(){
-//        for(Admin a : this.adminDAO.retrieveAllAdmins()){
-//            this.adminDAO.deleteAdmin(a);
-//        }
-//    }
-    
-    @Test
-    public void createAdmin() {
-        AdminDTO admin = this.createTestSubject();
-        Mockito.when(adminDAO.createAdmin((Admin)notNull())).thenAnswer(new Answer<Admin>() {
-
+    public void initMocksObject() {
+        initMocks(this);
+        Admin admin = createNewAdmin();
+        Mockito.when(adminDAO.createAdmin(admin)).thenAnswer(new Answer<Admin>() {
+           
             @Override
             public Admin answer(InvocationOnMock invocation) throws Throwable {
                 Admin mockedAdmin = invocation.getArgumentAt(0, Admin.class);
@@ -77,58 +60,145 @@ public class AdminServiceTest extends AbstractTestNGSpringContextTests {
             }
         });
         
-        admin = this.adminService.createAdmin(admin);
+        Mockito.when(adminDAO.retrieveAdminById(1)).thenAnswer(new Answer<Admin>() {
+
+            @Override
+            public Admin answer(InvocationOnMock invocation) throws Throwable {
+                Admin mockedAdmin = createNewAdmin();
+                mockedAdmin.setId(1);
+                return mockedAdmin;
+            }
+        });
         
-        assertTrue(admin.getId() > 0);
+        Mockito.when(adminDAO.retrieveAdminByName("Admin")).thenAnswer(new Answer<Admin>() {
+
+            @Override
+            public Admin answer(InvocationOnMock invocation) throws Throwable {
+                Admin mockedAdmin = createNewAdmin();
+                mockedAdmin.setId(1);
+                return mockedAdmin;
+            }
+        });
+        
+        Mockito.when(adminDAO.retrieveAdminByName("Don Admini")).thenAnswer(new Answer<Admin>() {
+
+            @Override
+            public Admin answer(InvocationOnMock invocation) throws Throwable {
+                Admin mockedAdmin = createNewAdmin();
+                mockedAdmin.setId(1);
+                mockedAdmin.setName("Don Admini");
+                return mockedAdmin;
+            }
+        });
+        
+        Mockito.when(adminDAO.updateAdmin((Admin)notNull())).thenAnswer(new Answer<Admin>() {
+
+            @Override
+            public Admin answer(InvocationOnMock invocation) throws Throwable {
+                Admin mockedAdmin = invocation.getArgumentAt(0, Admin.class);
+                return mockedAdmin;
+            }
+        });
+        
+        Mockito.when(adminDAO.deleteAdmin((Admin)notNull())).thenReturn(Boolean.TRUE);
+        
+        Mockito.when(adminDAO.retrieveAllAdmins()).thenAnswer(new Answer<List<Admin>>() {
+
+            @Override
+            public List<Admin> answer(InvocationOnMock invocation) throws Throwable {
+                List<Admin> admins = createGroupAdmins();
+                return admins;
+            }
+        });
     }
     
-//    @Test
-//    public void updateAdmin(){
-//        Admin admin = this.createTestSubject();
-//        this.adminDAO.createAdmin(admin);
-//        admin.setName("Don Giovani");
-//        this.adminDAO.updateAdmin(admin);
-//        assertEquals(this.adminDAO.retrieveAdminById(admin.getId()),admin, "Admin is not correctly updated");
-//        
-//    }
-//    
-//    @Test
-//    public void deleteAdmin(){
-//        Admin admin = this.createTestSubject();
-//        this.adminDAO.createAdmin(admin);
-//        this.adminDAO.deleteAdmin(admin);
-//        assertNull(this.adminDAO.retrieveAdminById(admin.getId()), "Admin is not correctly deleted");
-//    }
-//    
-//    @Test
-//    public void retrieveAdminById(){
-//        Admin admin = this.createTestSubject();
-//        this.adminDAO.createAdmin(admin);
-//        assertNotNull(this.adminDAO.retrieveAdminById(admin.getId()), "Admin is not correctly retrieved by id");
-//    }
-//    
-//    @Test
-//    public void retrieveAdminByName(){
-//        Admin admin = this.createTestSubject();
-//        admin.setName("Test name");
-//        this.adminDAO.createAdmin(admin);
-//        assertNotNull(this.adminDAO.retrieveAdminByName("Test name"), "Admin is not correctly retrieved by name");
-//    }
-//    
-//    @Test
-//    public void retrieveAllAdmins(){
-//        this.clearAdminDAO();
-//        
-//        // test if adminDao is clear
-//        assertEquals(this.adminDAO.retrieveAllAdmins().size(), 0, "Admin DAO is not successfully clered");
-//        
-//        // creates 10 test subjects
-//        for(int i = 0;i<10;i++){
-//            this.adminDAO.createAdmin(this.createTestSubject());          
-//        }
-//        
-//        assertEquals(this.adminDAO.retrieveAllAdmins().size(), 10, "Admins are not successfully retrieved");
-//    }
+    private Admin createNewAdmin() {
+        Admin admin = new Admin();
+        admin.setName("Admin");
+        return admin;
+    }
     
+    private AdminDTO createNewAdminDTO() {
+        AdminDTO admin = new AdminDTO();
+        admin.setName("Admin");
+        return admin;
+    }
     
+    @Test
+    public void createAdminTest() {
+        AdminDTO admin = createNewAdminDTO();
+        admin = adminService.createAdmin(admin);
+        Assert.assertTrue(admin.getId() == 1);
+        Assert.assertEquals(adminService.retrieveAdminById(admin.getId()), admin);
+        System.out.println("Test createAdmin DTO run succesfull");
+    }
+    
+    @Test
+    public void retrieveAdminByIdTest() {
+        AdminDTO admin = adminService.createAdmin(createNewAdminDTO());
+        AdminDTO dbAdmin = adminService.retrieveAdminById(admin.getId());
+        Assert.assertNotNull(dbAdmin);
+        System.out.println("Test retrieveAdminById DTO run succesfull");
+    }
+    
+    @Test
+    public void retrieveAdminByNameTest() {
+        AdminDTO admin = adminService.createAdmin(createNewAdminDTO());
+        AdminDTO dbAdmin = adminService.retrieveAdminByName(admin.getName());
+        Assert.assertNotNull(dbAdmin);
+        System.out.println("Test retrieveAdminByName DTO run succesfull");
+    }
+    
+    @Test
+    public void updateAdminTest() {
+        AdminDTO admin = adminService.createAdmin(createNewAdminDTO());
+        admin.setName("Don Admini");
+        adminService.updateAdmin(admin);
+        AdminDTO dbAdmin = adminService.retrieveAdminByName("Don Admini");
+        Assert.assertEquals(dbAdmin.getName(), "Don Admini");
+        System.out.println("Test updateAdmin DTO run succesfull");
+    }
+    
+    @Test
+    public void deleteAdminTest() {
+        AdminDTO admin = adminService.createAdmin(createNewAdminDTO());
+        Assert.assertTrue(adminService.deleteAdmin(admin));
+        System.out.println("Test deleteAdmin DTO run succesfull");
+    }
+    
+    private List<Admin> createGroupAdmins() {
+        List<Admin> admins = new ArrayList();
+        for(int i = 1; i < 6; i++) {
+            Admin admin = createNewAdmin();
+            admin.setName(admin.getName()+"_"+i);
+            admin.setId(i);
+            admins.add(admin);
+        }
+        return admins;
+    }
+    
+    private void createGroupAdminsDTO() {
+        for(int i = 1; i < 6; i++) {
+            AdminDTO admin = adminService.createAdmin(createNewAdminDTO());
+            admin.setName(admin.getName()+"_"+i);
+            admin.setId(i);
+            adminService.updateAdmin(admin);
+        }
+    }
+    
+    @Test
+    public void retrieveAllAdminsTest() {
+        createGroupAdminsDTO();
+        List<AdminDTO> admins;    
+        admins = adminService.retrieveAllAdmins();
+        Assert.assertEquals(admins.size(), 5);
+        System.out.println("Test retrieveAllAdmins DTO run succesfull");
+    }
+    
+    @Test
+    public void deleteAllAdminsTest() {
+        createGroupAdminsDTO();
+        Assert.assertTrue(adminService.deleteAllAdmins());
+        System.out.println("Test deleteAllAdmins DTO run succesfull");
+    }
 }

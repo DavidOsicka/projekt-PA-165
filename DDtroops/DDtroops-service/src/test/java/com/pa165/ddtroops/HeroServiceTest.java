@@ -34,7 +34,6 @@ import org.testng.annotations.Test;
  * Test class for testing Hero service
  */
 @ContextConfiguration(locations = {"classpath:/applicationContext-service.xml"})
-//@ContextConfiguration("file:src/main/resources/applicationContext-service.xml")
 public class HeroServiceTest extends AbstractTestNGSpringContextTests {
     
     @InjectMocks       
@@ -195,7 +194,7 @@ public class HeroServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void retrieveAllHeroesTest() {
         createGroupHeroesDTO();
-        List<HeroDTO> heroes = new ArrayList();     
+        List<HeroDTO> heroes;    
         heroes = heroService.retrieveAllHeroes();
         Assert.assertEquals(heroes.size(), 5);
         System.out.println("Test retrieveAllHeroes DTO run succesfull");
