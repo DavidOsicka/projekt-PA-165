@@ -11,6 +11,7 @@
     <modules>
         <module>DDtroops-dao</module>
         <module>DDtroops-service</module>
-    </modules>
+    <module>DDtroops-web</module>
+  </modules>
     <name>DDtroops</name>
 </project>
