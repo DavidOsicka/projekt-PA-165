@@ -19,7 +19,7 @@
                 <th>id</th>
                 <th><f:message key="troop.name"/></th>
                 <th><f:message key="troop.mission"/></th>
-                <th><f:message key="troop.amount"/></th>
+                <th><f:message key="troop.amountOfGM"/></th>
                 <th></th>
                 <th></th>
             </tr>
