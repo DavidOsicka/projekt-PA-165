@@ -41,11 +41,11 @@ public class RoleServiceImpl implements RoleService{
     }
     
     private RoleDTO mapDTO(Role role) {
-        return mapper == null ? null : mapper.map(role, RoleDTO.class);
+        return mapper == null || role == null ? null : mapper.map(role, RoleDTO.class);
     }
     
     private Role mapEntity(RoleDTO roleDTO) {
-        return mapper == null ? null : mapper.map(roleDTO, Role.class);
+        return mapper == null || roleDTO == null ? null : mapper.map(roleDTO, Role.class);
     }
     
     @Override

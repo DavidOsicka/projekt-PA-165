@@ -61,6 +61,7 @@ public class RoleActionBean extends BaseActionBean{
             @Validate(on = {"add", "save"}, field = "attack", required = true, minvalue = 0),
             @Validate(on = {"add", "save"}, field = "defense", required = true, minvalue = 0)
     })
+    private RoleDTO role;
     
     @ValidationMethod(on = "add")
     public void createUniqueName(ValidationErrors errors) {
@@ -68,7 +69,7 @@ public class RoleActionBean extends BaseActionBean{
         if(rls.size() > 0) {
             for(RoleDTO r : rls) {
                 if(role.getName().equals(r.getName())) {
-                    errors.add("name", new LocalizableError("role.save.samenameerror"));
+                    errors.add("role.name", new LocalizableError("role.save.samenameerror"));
                 }
             }
         }
@@ -80,14 +81,12 @@ public class RoleActionBean extends BaseActionBean{
         if(rls.size() > 0) {
             for(RoleDTO r : rls) {
                 if((role.getName().equals(r.getName())) && (role.getId() != r.getId())) {
-                    errors.add("name", new LocalizableError("role.save.samenameerror"));
+                    errors.add("role.name", new LocalizableError("role.save.samenameerror"));
                 }
             }
         }
     }
     
-    private RoleDTO role;
-
     public Resolution create() {
         log.debug("create()");
         return new ForwardResolution("/role/create.jsp");
