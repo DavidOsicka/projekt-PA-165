@@ -5,7 +5,6 @@ import com.pa165.ddtroops.dao.RoleDAO;
 import com.pa165.ddtroops.entity.Role;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -65,12 +64,8 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role retrieveRoleByName (String name) {
-        try {
-            Role roleByName = em.createQuery("SELECT r FROM Role r WHERE name=:name", Role.class).setParameter("name", name).getSingleResult();
-            return roleByName;
-        } catch (NoResultException ex) {
-            return null;
-        }
+        Role roleByName = em.createQuery("SELECT r FROM Role r WHERE name=:name", Role.class).setParameter("name", name).getSingleResult();
+        return roleByName;
     }
 
 }

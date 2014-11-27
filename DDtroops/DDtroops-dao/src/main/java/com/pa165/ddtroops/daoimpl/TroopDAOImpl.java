@@ -4,7 +4,6 @@ import com.pa165.ddtroops.dao.TroopDAO;
 import com.pa165.ddtroops.entity.Troop;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
@@ -73,14 +72,10 @@ public class TroopDAOImpl implements TroopDAO {
 
     @Override
     public Troop retrieveTroopByName(String name) {
-        try {
-            Query q = em.createQuery("SELECT t from Troop t WHERE t.name = :name", Troop.class);
-            q.setParameter("name", name);
-            Troop troop = getSingleTroop(q);
-            return troop;
-        } catch (NoResultException ex) {
-            return null;
-        }
+        Query q = em.createQuery("SELECT t from Troop t WHERE t.name = :name", Troop.class);
+        q.setParameter("name", name);
+        Troop troop = getSingleTroop(q);
+        return troop;
     }
     
     private Troop getSingleTroop(Query q) {

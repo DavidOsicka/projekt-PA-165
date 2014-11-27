@@ -41,11 +41,11 @@ public class TroopServiceImpl implements TroopService {
     }
     
     private TroopDTO mapDTO(Troop troop) {
-        return mapper == null || troop == null ? null : mapper.map(troop, TroopDTO.class);
+        return mapper == null ? null : mapper.map(troop, TroopDTO.class);
     }
     
     private Troop mapEntity(TroopDTO troopDTO) {
-        return mapper == null || troopDTO == null ? null : mapper.map(troopDTO, Troop.class);
+        return mapper == null ? null : mapper.map(troopDTO, Troop.class);
     }
 
     @Override

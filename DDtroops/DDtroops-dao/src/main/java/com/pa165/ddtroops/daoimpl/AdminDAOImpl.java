@@ -4,7 +4,6 @@ import com.pa165.ddtroops.dao.AdminDAO;
 import com.pa165.ddtroops.entity.Admin;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -64,15 +63,11 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public Admin retrieveAdminByName(String name) {
-        try {
-            Admin adminByName = em.createQuery(
-                    "SELECT a FROM Admin a WHERE a.name=:name", Admin.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-            return adminByName;
-        } catch (NoResultException ex) {
-            return null;
-        }
+        Admin adminByName = em.createQuery(
+                "SELECT a FROM Admin a WHERE a.name=:name", Admin.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return adminByName;
     }
 
 }

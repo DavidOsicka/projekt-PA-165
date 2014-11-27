@@ -58,7 +58,6 @@ public class AdminActionBean extends BaseActionBean{
     @ValidateNestedProperties(value= {
         @Validate(on = {"add", "save"}, field = "name", required = true)
     })
-    private AdminDTO admin;
     
     @ValidationMethod(on = "add")
     public void createUniqueName(ValidationErrors errors) {
@@ -66,7 +65,7 @@ public class AdminActionBean extends BaseActionBean{
         if(adms.size() > 0) {
             for(AdminDTO a : adms) {
                 if(admin.getName().equals(a.getName())) {
-                    errors.add("admin.name", new LocalizableError("admin.save.samenameerror"));
+                    errors.add("name", new LocalizableError("admin.save.samenameerror"));
                 }
             }
         }
@@ -78,12 +77,14 @@ public class AdminActionBean extends BaseActionBean{
         if(adms.size() > 0) {
             for(AdminDTO a : adms) {
                 if((admin.getName().equals(a.getName())) && (admin.getId() != a.getId())) {
-                    errors.add("admin.name", new LocalizableError("admin.save.samenameerror"));
+                    errors.add("name", new LocalizableError("admin.save.samenameerror"));
                 }
             }
         }
     }
-       
+    
+    private AdminDTO admin;
+    
     public Resolution create(){
         log.debug("create()");
         return new ForwardResolution("/admin/create.jsp");
