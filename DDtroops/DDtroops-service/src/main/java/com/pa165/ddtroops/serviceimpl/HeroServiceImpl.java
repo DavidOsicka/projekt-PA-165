@@ -40,11 +40,11 @@ public class HeroServiceImpl implements HeroService{
     }
     
     private HeroDTO mapDTO(Hero hero) {
-        return mapper == null ? null : mapper.map(hero, HeroDTO.class);
+        return mapper == null || hero == null ? null : mapper.map(hero, HeroDTO.class);
     }
     
     private Hero mapEntity(HeroDTO heroDTO) {
-        return mapper == null ? null : mapper.map(heroDTO, Hero.class);
+        return mapper == null || heroDTO == null ? null : mapper.map(heroDTO, Hero.class);
     }
     
     @Override

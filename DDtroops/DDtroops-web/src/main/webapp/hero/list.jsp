@@ -26,7 +26,7 @@
                     <td><c:out value="${hero.name}"/></td>
                     <td><c:out value="${hero.race}"/></td>
                     <td><c:out value="${hero.xp}"/></td>
-                    <td><c:forEach items="${hero.role}" var="role"><c:out value="${role.name}"/></c:forEach></td>
+                    <td><c:forEach items="${hero.role}" var="role"><c:out value="${role.name}"/> </c:forEach></td>
                     <td><c:out value="${hero.troop.name}"/></td>
                     <td>
                      <s:link beanclass="com.pa165.ddtroops.web.HeroActionBean" event="edit"><s:param name="hero.id" value="${hero.id}"/><f:message key="hero.list.edit"/></s:link>

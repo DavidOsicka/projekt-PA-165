@@ -48,30 +48,26 @@ public class HeroActionBean extends BaseActionBean {
         return troopService.retrieveAllTroops();
     }
     
-    public List<Long> getCurrentRoles() {
-        List<Long> roles = new ArrayList<Long>();
-        if (hero != null) {
-            for (RoleDTO role : hero.getRole()) {
-                roles.add(role.getId());
-            }
-        }
-        return roles;
-    }
-    
-    private List<RoleDTO> newRoles;
+    private List<Long> newRoles;
 
-    public List<RoleDTO> getNewRoles() {
+    public List<Long> getNewRoles() {
         return newRoles;
     }
 
-    public void setNewRoles(List<RoleDTO> newRoles) {
+    public void setNewRoles(List<Long> newRoles) {
         this.newRoles = newRoles;
     }
     
     private void fillNewRoles() {
+        HashSet<RoleDTO> newRolesSet = new HashSet<RoleDTO>();
         if (hero != null && newRoles != null) {
-            hero.setRole(new HashSet<RoleDTO>(newRoles));
+            for (Long newRoleId : newRoles) {
+                RoleDTO newRole = new RoleDTO();
+                newRole.setId(newRoleId);
+                newRolesSet.add(newRole);
+            }
         }
+        hero.setRole(newRolesSet);
     }
 
     //--- part for showing a list of heroes ----
@@ -121,6 +117,23 @@ public class HeroActionBean extends BaseActionBean {
     }
     
     private HeroDTO hero;
+    
+    @ValidationMethod(on = "add")
+    public void createUniqueName(ValidationErrors errors) {
+        HeroDTO existingHero = heroService.retrieveHeroByName(hero.getName());
+        if (existingHero != null && hero.getName().equals(existingHero.getName())) {
+            errors.add("hero.name", new LocalizableError("hero.save.samenameerror"));
+        }
+    }
+    
+    @ValidationMethod(on = "save")
+    public void updateUniqueName(ValidationErrors errors) {
+        HeroDTO existingHero = heroService.retrieveHeroByName(hero.getName());
+        if (existingHero != null && hero.getName().equals(existingHero.getName()) &&
+                hero.getId() != existingHero.getId()) {
+            errors.add("hero.name", new LocalizableError("hero.save.samenameerror"));
+        }
+    }
 
     public Resolution create() {
         log.debug("create()");
@@ -165,6 +178,10 @@ public class HeroActionBean extends BaseActionBean {
 
     public Resolution edit() {
         log.debug("edit() hero={}", hero);
+        newRoles = new ArrayList<Long>();
+        for (RoleDTO role : hero.getRole()) {
+            newRoles.add(role.getId());
+        }
         return new ForwardResolution("/hero/edit.jsp");
     }
 
