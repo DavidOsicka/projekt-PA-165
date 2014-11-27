@@ -19,8 +19,11 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationErrors;
+import net.sourceforge.stripes.validation.ValidationMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +61,31 @@ public class RoleActionBean extends BaseActionBean{
             @Validate(on = {"add", "save"}, field = "attack", required = true, minvalue = 0),
             @Validate(on = {"add", "save"}, field = "defense", required = true, minvalue = 0)
     })
+    
+    @ValidationMethod(on = "add")
+    public void createUniqueName(ValidationErrors errors) {
+        List<RoleDTO> rls = roleService.retrieveAllRoles();
+        if(rls.size() > 0) {
+            for(RoleDTO r : rls) {
+                if(role.getName().equals(r.getName())) {
+                    errors.add("name", new LocalizableError("role.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
+    @ValidationMethod(on = "save")
+    public void updateUniqueName(ValidationErrors errors) {
+        List<RoleDTO> rls = roleService.retrieveAllRoles();
+        if(rls.size() > 0) {
+            for(RoleDTO r : rls) {
+                if((role.getName().equals(r.getName())) && (role.getId() != r.getId())) {
+                    errors.add("name", new LocalizableError("role.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
     private RoleDTO role;
 
     public Resolution create() {

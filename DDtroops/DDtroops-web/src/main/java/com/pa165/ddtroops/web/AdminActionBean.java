@@ -18,8 +18,11 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationErrors;
+import net.sourceforge.stripes.validation.ValidationMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +58,31 @@ public class AdminActionBean extends BaseActionBean{
     @ValidateNestedProperties(value= {
         @Validate(on = {"add", "save"}, field = "name", required = true)
     })
+    
+    @ValidationMethod(on = "add")
+    public void createUniqueName(ValidationErrors errors) {
+        List<AdminDTO> adms = adminService.retrieveAllAdmins();
+        if(adms.size() > 0) {
+            for(AdminDTO a : adms) {
+                if(admin.getName().equals(a.getName())) {
+                    errors.add("name", new LocalizableError("admin.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
+    @ValidationMethod(on = "save")
+    public void updateUniqueName(ValidationErrors errors) {
+        List<AdminDTO> adms = adminService.retrieveAllAdmins();
+        if(adms.size() > 0) {
+            for(AdminDTO a : adms) {
+                if((admin.getName().equals(a.getName())) && (admin.getId() != a.getId())) {
+                    errors.add("name", new LocalizableError("admin.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
     private AdminDTO admin;
     
     public Resolution create(){

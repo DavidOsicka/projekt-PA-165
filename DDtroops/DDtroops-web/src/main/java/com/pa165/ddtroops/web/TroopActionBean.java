@@ -58,6 +58,7 @@ public class TroopActionBean extends BaseActionBean {
             @Validate(on = {"add", "save"}, field = "mission", required = true),
             @Validate(on = {"add", "save"}, field = "amountOfGM", required = true, minvalue = 0)
     })
+    private TroopDTO troop;
     
     @ValidationMethod(on = "add")
     public void createUniqueName(ValidationErrors errors) {
@@ -65,26 +66,25 @@ public class TroopActionBean extends BaseActionBean {
         if(trps.size() > 0) {
             for(TroopDTO t : trps) {
                 if(troop.getName().equals(t.getName())) {
-                    errors.add("name", new LocalizableError("troop.save.samenameerror"));
+                    errors.add("troop.name", new LocalizableError("troop.save.samenameerror"));
                 }
             }
-        }
+        }    
     }
     
     @ValidationMethod(on = "save")
     public void updateUniqueName(ValidationErrors errors) {
-        List<TroopDTO> trps = troopService.retrieveAllTroops();
-        if(trps.size() > 0) {
-            for(TroopDTO t : trps) {
-                if((troop.getName().equals(t.getName())) && (troop.getId() != t.getId())) {
-                    errors.add("name", new LocalizableError("troop.save.samenameerror"));
-                }
-            }
-        }
+                List<TroopDTO> trps = troopService.retrieveAllTroops();
+                if(trps.size() > 0) {
+                    for(TroopDTO t : trps) {
+                        if((troop.getName().equals(t.getName())) && (troop.getId() != t.getId())) {
+                            errors.add("troop.name", new LocalizableError("troop.save.samenameerror"));
+                        }
+                    }
+                }    
     }
     
-    private TroopDTO troop;
-
+    
     public Resolution create() {
         log.debug("create()");
         return new ForwardResolution("/troop/create.jsp");
