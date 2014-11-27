@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <s:errors/>
 <table>
@@ -23,11 +24,12 @@
         </td>
     </tr>
     <tr>
-        <th><s:label for="h5" name="hero.role"/></th>
+        <th><s:label for="h5" name="hero.roles"/></th>
         <td>
-            <s:select multiple="true" id="h5" name="newRoles">
-                <s:options-collection collection="${actionBean.allRoles}" value="id" label="name" />
-            </s:select>
+            <c:forEach items="${actionBean.allRoles}" var="role">
+                <s:checkbox id="role${role.id}" name="newRoles[]" value="${role.id}" />
+                <s:label for="role${role.id}" name="${role.name}"/>
+            </c:forEach>
         </td>
     </tr>
 </table>
