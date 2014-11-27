@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author Jakub Kovarik
  */
 
-@UrlBinding("/admin/{$event}/{admin.id}")
+@UrlBinding("/admins/{$event}/{admin.id}")
 public class AdminActionBean extends BaseActionBean{
     
     final static Logger log = LoggerFactory.getLogger(AdminActionBean.class);

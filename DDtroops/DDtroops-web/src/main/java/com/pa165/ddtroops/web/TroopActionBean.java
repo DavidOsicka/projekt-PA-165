@@ -8,8 +8,6 @@ package com.pa165.ddtroops.web;
 import com.pa165.ddtroops.dto.TroopDTO;
 import com.pa165.ddtroops.service.HeroService;
 import com.pa165.ddtroops.service.TroopService;
-import java.util.ArrayList;
-import java.util.HashSet;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
