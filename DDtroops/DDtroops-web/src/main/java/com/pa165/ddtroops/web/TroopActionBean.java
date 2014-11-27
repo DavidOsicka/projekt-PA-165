@@ -17,6 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
+import net.sourceforge.stripes.validation.ValidationMethod;
 
 /**
  * Stripes ActionBean for handling troop operations.
@@ -55,6 +58,31 @@ public class TroopActionBean extends BaseActionBean {
             @Validate(on = {"add", "save"}, field = "mission", required = true),
             @Validate(on = {"add", "save"}, field = "amountOfGM", required = true, minvalue = 0)
     })
+    
+    @ValidationMethod(on = "add")
+    public void createUniqueName(ValidationErrors errors) {
+        List<TroopDTO> trps = troopService.retrieveAllTroops();
+        if(trps.size() > 0) {
+            for(TroopDTO t : trps) {
+                if(troop.getName().equals(t.getName())) {
+                    errors.add("name", new LocalizableError("troop.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
+    @ValidationMethod(on = "save")
+    public void updateUniqueName(ValidationErrors errors) {
+        List<TroopDTO> trps = troopService.retrieveAllTroops();
+        if(trps.size() > 0) {
+            for(TroopDTO t : trps) {
+                if((troop.getName().equals(t.getName())) && (troop.getId() != t.getId())) {
+                    errors.add("name", new LocalizableError("troop.save.samenameerror"));
+                }
+            }
+        }
+    }
+    
     private TroopDTO troop;
 
     public Resolution create() {
@@ -91,7 +119,7 @@ public class TroopActionBean extends BaseActionBean {
     //part for edit troop
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
-    public void loadHeroFromDatabase() { //preklep? 
+    public void loadTroopFromDatabase() {
         String ids = getContext().getRequest().getParameter("troop.id");
         if (ids == null) return;
         troop = troopService.retrieveTroopById(Long.parseLong(ids));
