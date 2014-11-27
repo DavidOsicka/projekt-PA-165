@@ -38,11 +38,11 @@ public class AdminServiceImpl implements AdminService {
     }
     
     private AdminDTO mapDTO(Admin admin) {
-        return mapper == null ? null : mapper.map(admin, AdminDTO.class);
+        return mapper == null || admin == null ? null : mapper.map(admin, AdminDTO.class);
     }
     
     private Admin mapEntity(AdminDTO adminDTO) {
-        return mapper == null ? null : mapper.map(adminDTO, Admin.class);
+        return mapper == null || adminDTO == null ? null : mapper.map(adminDTO, Admin.class);
     }
 
     @Override
