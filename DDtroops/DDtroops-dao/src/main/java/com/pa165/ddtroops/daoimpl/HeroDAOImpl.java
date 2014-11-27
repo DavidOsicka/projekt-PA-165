@@ -5,6 +5,7 @@ import com.pa165.ddtroops.dao.HeroDAO;
 import com.pa165.ddtroops.entity.Hero;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -64,8 +65,13 @@ public class HeroDAOImpl implements HeroDAO {
 
     @Override
     public Hero retrieveHeroByName (String name) {
-        Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE h.name=:name", Hero.class).setParameter("name", name).getSingleResult();
-        return heroByName;
+        try {
+            Hero heroByName = em.createQuery("SELECT h FROM Hero h WHERE h.name=:name", Hero.class)
+                    .setParameter("name", name).getSingleResult();
+            return heroByName;
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
 }

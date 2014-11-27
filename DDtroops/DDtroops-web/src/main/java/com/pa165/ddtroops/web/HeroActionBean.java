@@ -17,6 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
+import net.sourceforge.stripes.validation.ValidationMethod;
 
 /**
  * Stripes ActionBean for handling hero operations.
@@ -89,6 +92,23 @@ public class HeroActionBean extends BaseActionBean {
             @Validate(on = {"add", "save"}, field = "xp", required = true, minvalue = 0)
     })
     private HeroDTO hero;
+    
+    @ValidationMethod(on = "add")
+    public void createUniqueName(ValidationErrors errors) {
+        HeroDTO existingHero = heroService.retrieveHeroByName(hero.getName());
+        if (existingHero != null && hero.getName().equals(existingHero.getName())) {
+            errors.add("hero.name", new LocalizableError("hero.save.samenameerror"));
+        }
+    }
+    
+    @ValidationMethod(on = "save")
+    public void updateUniqueName(ValidationErrors errors) {
+        HeroDTO existingHero = heroService.retrieveHeroByName(hero.getName());
+        if (existingHero != null && hero.getName().equals(existingHero.getName()) &&
+                hero.getId() != existingHero.getId()) {
+            errors.add("hero.name", new LocalizableError("hero.save.samenameerror"));
+        }
+    }
 
     public Resolution create() {
         log.debug("create()");
