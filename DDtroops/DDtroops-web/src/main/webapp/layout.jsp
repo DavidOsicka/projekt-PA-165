@@ -15,7 +15,7 @@
    <div id="navigation">
      <ul>
        <li><s:link href="/index.jsp"><f:message key="navigation.index"/></s:link></li>
-       <li><s:link href="/admin.jsp"><f:message key="navigation.admin"/></s:link></li>
+       <li><s:link beanclass="com.pa165.ddtroops.web.AdminActionBean" event="list"><f:message key="navigation.admin"/></s:link></li>
        <li><s:link beanclass="com.pa165.ddtroops.web.HeroActionBean" event="list"><f:message key="navigation.hero"/></s:link></li>
        <li><s:link href="/role.jsp"><f:message key="navigation.role"/></s:link></li>
        <li><s:link beanclass="com.pa165.ddtroops.web.TroopActionBean" event="list"><f:message key="navigation.troop"/></s:link></li>

@@ -93,7 +93,7 @@ public class TroopActionBean extends BaseActionBean {
     //part for edit troop
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
-    public void loadHeroFromDatabase() {
+    public void loadHeroFromDatabase() { //preklep? 
         String ids = getContext().getRequest().getParameter("troop.id");
         if (ids == null) return;
         troop = troopService.retrieveTroopById(Long.parseLong(ids));
