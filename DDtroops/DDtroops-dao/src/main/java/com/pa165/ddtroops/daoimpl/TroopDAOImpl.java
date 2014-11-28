@@ -49,7 +49,7 @@ public class TroopDAOImpl implements TroopDAO {
 
     @Override
     public Boolean deleteTroop(Troop troop) {
-        try {  
+        try { 
             em.remove(em.contains(troop) ? troop : em.merge(troop));
         } catch (Exception e) {
             return false;

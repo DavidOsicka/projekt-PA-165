@@ -5,6 +5,7 @@
  */
 package com.pa165.ddtroops.web;
 
+import com.pa165.ddtroops.dto.HeroDTO;
 import com.pa165.ddtroops.dto.TroopDTO;
 import com.pa165.ddtroops.service.HeroService;
 import com.pa165.ddtroops.service.TroopService;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
@@ -111,6 +113,15 @@ public class TroopActionBean extends BaseActionBean {
         log.debug("delete()", troop.getId());
         //only id is filled by the form
         troop = troopService.retrieveTroopById(troop.getId());
+        Set<HeroDTO> heroes = troop.getHeroes();
+        if(heroes != null) {
+            if(heroes.size() > 0) {
+                for(HeroDTO h : heroes) {
+                    h.setTroop(null);
+                    heroService.updateHero(h);
+                }
+            }
+        }
         troopService.deleteTroop(troop);
         getContext().getMessages().add(new LocalizableMessage("troop.delete.message", escapeHTML(troop.getName()),escapeHTML(troop.getMission())));
         return new RedirectResolution(this.getClass(), "list");

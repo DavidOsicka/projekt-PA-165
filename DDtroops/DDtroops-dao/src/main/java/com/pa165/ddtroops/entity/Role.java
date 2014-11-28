@@ -31,7 +31,7 @@ public class Role {
     
     private int defense;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "role")
     private Set<Hero> heroes;
 
     public Role () {

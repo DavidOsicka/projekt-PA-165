@@ -6,10 +6,13 @@
 
 package com.pa165.ddtroops.web;
 
+import com.pa165.ddtroops.dto.HeroDTO;
 import com.pa165.ddtroops.dto.RoleDTO;
+import com.pa165.ddtroops.service.HeroService;
 import com.pa165.ddtroops.service.RoleService;
 import static com.pa165.ddtroops.web.BaseActionBean.escapeHTML;
 import java.util.List;
+import java.util.Set;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -37,6 +40,9 @@ public class RoleActionBean extends BaseActionBean{
     
     @SpringBean
     protected RoleService roleService;
+    
+    @SpringBean
+    protected HeroService heroService;
     
     // part with displaying of roles
     private List<RoleDTO> roles;
@@ -116,6 +122,15 @@ public class RoleActionBean extends BaseActionBean{
         log.debug("delete()", role.getId());
         //only id is filled by the form
         role = roleService.retrieveRoleById(role.getId());
+        Set<HeroDTO> heroes = role.getHeroes();
+        if(heroes != null) {
+            if(heroes.size() > 0) {
+                for(HeroDTO h : heroes) {
+                    h.getRole().remove(role);
+                    heroService.updateHero(h);
+                }
+            }
+        }
         roleService.deleteRole(role);
         getContext().getMessages().add(new LocalizableMessage("role.delete.message", escapeHTML(role.getName())));
         return new RedirectResolution(this.getClass(), "list");
