@@ -1,0 +1,141 @@
+input.error {
+    background-color: yellow;
+}
+
+body {
+    position:relative;
+    font-family: Immortal;
+    background: black url('./undead_dragon.jpg') center;
+}
+
+@font-face {
+    font-family: Immortal;
+    src: url(./IMMORTAL.ttf);
+}
+
+.messages{
+    border: 1px solid darkgreen; 
+    background-color: lightgreen; 
+    margin: 10px;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    padding-top:3px !important;
+    padding-bottom: 0px !important;
+}
+
+.errorbox{
+    border: 1px solid red; 
+    background-color: yellow; 
+    margin: 10px; 
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    padding-top:3px !important;
+    padding-bottom: 0px !important;
+    
+}
+#main{
+    width:1000px;
+    margin:auto;
+    background: #ccc;
+    min-height:500px;
+    margin-top:50px;
+    background: url('./main-background.png');
+}
+#hdr{
+    min-height: 150px;
+    width:1000px;
+    margin:auto;
+    margin-top:50px;
+    background: url(./Title.png) center;
+}
+
+
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+    text-shadow: #333;
+    text-transform: capitalize;
+}
+
+table.basic {
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+table.basic th, table.basic td {
+    border: solid 1px black;
+    padding: 4px;
+}
+
+/*  http://www.alistapart.com/articles/taminglists/ */
+#navigation {
+    position:relative;
+    top: -50px;
+    left: -75px;
+    width: 300px;
+    min-height:500px;
+    margin-bottom: 1em;
+    padding-top:50px;
+    
+    
+    
+}
+
+#navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+#navigation li {
+    //border-bottom: 1px solid #90bade;
+    margin: 0;
+    background: url(./menu.png);
+}
+
+#navigation li a {
+    
+    display:block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 25px;
+    height:100px;
+    width: 100%;
+    position:relative;
+    top:25px;
+    color:black;
+    
+}
+
+html>body #navigation li a {
+    width: auto;
+}
+
+#navigation li:hover{
+    background: url(./menu-selected.png);   
+}
+#navigation li a:hover {
+    position:relative;
+    top:25px;
+    color: white;
+}
+
+/*  http://realworldstyle.com/2col.html */
+#navigation {
+    width: 300px;
+    float: left;
+    margin-left: -1px;
+   
+}
+
+#content {
+   // padding: 10px;
+    margin-left: 100px;
+    color:black;
+    font-family: Immortal;
+    position: relative;
+    left:-40px;
+}
+
