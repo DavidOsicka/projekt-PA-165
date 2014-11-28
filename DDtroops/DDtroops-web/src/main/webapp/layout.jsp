@@ -12,6 +12,7 @@
 </head>
 <body>
    <div id="hdr"></div>
+   <div id="mainHdr"></div>
    <div id="main">
        
    
@@ -29,7 +30,8 @@
        <s:messages/>
        <s:layout-component name="body"/>
     </div>
-    </div>
+   </div>
+    <div id="mainFtr"></div>
 </body>
 </html>
 </s:layout-definition>
