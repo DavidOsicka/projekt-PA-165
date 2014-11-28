@@ -5,7 +5,7 @@ input.error {
 body {
     position:relative;
     font-family: Immortal;
-    background: black url('./undead_dragon.jpg') center;
+    background: black url('./undead_dragon.jpg') center no-repeat;
 }
 
 @font-face {
