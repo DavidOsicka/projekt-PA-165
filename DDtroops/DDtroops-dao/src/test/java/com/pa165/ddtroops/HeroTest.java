@@ -7,8 +7,8 @@ package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.HeroDAO;
 import com.pa165.ddtroops.entity.Hero;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,13 +29,15 @@ import org.testng.annotations.Test;
 public class HeroTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private HeroDAO heroDAO;
+    
+    private final Random randomizer = new Random();
 
     public HeroTest() {
     }
 
     private Hero getDummyHero() {
         Hero h = new Hero();
-        h.setName("Ozak" + new Date().getTime());
+        h.setName("Ozak" + randomizer.nextInt());
         h.setRace("Orc");
         h.setXp(1000);
         return h;

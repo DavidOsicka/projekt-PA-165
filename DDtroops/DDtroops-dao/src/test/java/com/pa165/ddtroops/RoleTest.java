@@ -31,12 +31,14 @@ public class RoleTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private RoleDAO roleDAO;
     
+    private final Random randomizer = new Random();
+    
     public RoleTest(){
     }
     
     private Role createTestRole(){
         Role role = new Role();
-        role.setName("Crazy wizard "+ new Random().nextInt());
+        role.setName("Crazy wizard "+ randomizer.nextInt());
         role.setDescription("Description of the role");
         role.setDefense(100);
         role.setAttack(20);

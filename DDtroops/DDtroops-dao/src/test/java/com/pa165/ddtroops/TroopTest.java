@@ -33,12 +33,14 @@ public class TroopTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private TroopDAO troopDao;
     
+    private final Random randomizer = new Random();
+    
     public TroopTest() {
     }
     
     private Troop createStartTroop() {
         Troop troop = new Troop();
-        troop.setName("Killers_" + new Random().nextInt());
+        troop.setName("Killers_" + randomizer.nextInt());
         troop.setMission("Go to White Castle and kill Big Yeti");
         troop.setAmountOfGM(150);
         return troop;

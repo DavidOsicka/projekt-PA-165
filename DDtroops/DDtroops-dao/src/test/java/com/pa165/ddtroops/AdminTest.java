@@ -33,12 +33,14 @@ public class AdminTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private AdminDAO adminDAO;
     
+    private final Random randomizer = new Random();
+    
     public AdminTest() {
     }
     
     private Admin createTestSubject(){
         Admin admin = new Admin();
-        admin.setName("Don Admini " + new Random().nextInt());
+        admin.setName("Don Admini " + randomizer.nextInt());
         return admin;
     }
     
