@@ -6,9 +6,9 @@
 package com.pa165.ddtroops.serviceimpl;
 
 import com.pa165.ddtroops.dao.HeroDAO;
-import com.pa165.ddtroops.dto.HeroDTO;
+import com.pa165.ddtroops.api.dto.HeroDTO;
 import com.pa165.ddtroops.entity.Hero;
-import com.pa165.ddtroops.service.HeroService;
+import com.pa165.ddtroops.api.service.HeroService;
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;

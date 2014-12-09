@@ -6,8 +6,8 @@
 
 package com.pa165.ddtroops.web;
 
-import com.pa165.ddtroops.dto.AdminDTO;
-import com.pa165.ddtroops.service.AdminService;
+import com.pa165.ddtroops.api.dto.AdminDTO;
+import com.pa165.ddtroops.api.service.AdminService;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;

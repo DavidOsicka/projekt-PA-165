@@ -1,11 +1,11 @@
 package com.pa165.ddtroops.web;
 
-import com.pa165.ddtroops.dto.HeroDTO;
-import com.pa165.ddtroops.dto.RoleDTO;
-import com.pa165.ddtroops.dto.TroopDTO;
-import com.pa165.ddtroops.service.HeroService;
-import com.pa165.ddtroops.service.RoleService;
-import com.pa165.ddtroops.service.TroopService;
+import com.pa165.ddtroops.api.dto.HeroDTO;
+import com.pa165.ddtroops.api.dto.RoleDTO;
+import com.pa165.ddtroops.api.dto.TroopDTO;
+import com.pa165.ddtroops.api.service.HeroService;
+import com.pa165.ddtroops.api.service.RoleService;
+import com.pa165.ddtroops.api.service.TroopService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import net.sourceforge.stripes.action.*;

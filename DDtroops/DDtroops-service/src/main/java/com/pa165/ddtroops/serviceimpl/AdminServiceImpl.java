@@ -6,9 +6,9 @@
 package com.pa165.ddtroops.serviceimpl;
 
 import com.pa165.ddtroops.dao.AdminDAO;
-import com.pa165.ddtroops.dto.AdminDTO;
+import com.pa165.ddtroops.api.dto.AdminDTO;
 import com.pa165.ddtroops.entity.Admin;
-import com.pa165.ddtroops.service.AdminService;
+import com.pa165.ddtroops.api.service.AdminService;
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;

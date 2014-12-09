@@ -6,7 +6,7 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.RoleDAO;
-import com.pa165.ddtroops.dto.RoleDTO;
+import com.pa165.ddtroops.api.dto.RoleDTO;
 import com.pa165.ddtroops.entity.Role;
 import com.pa165.ddtroops.serviceimpl.RoleServiceImpl;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pa165.ddtroops.dto;
+package com.pa165.ddtroops.api.dto;
 
 import java.io.Serializable;
 

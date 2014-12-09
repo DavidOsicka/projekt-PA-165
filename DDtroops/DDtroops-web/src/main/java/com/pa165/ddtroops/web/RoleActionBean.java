@@ -6,10 +6,10 @@
 
 package com.pa165.ddtroops.web;
 
-import com.pa165.ddtroops.dto.HeroDTO;
-import com.pa165.ddtroops.dto.RoleDTO;
-import com.pa165.ddtroops.service.HeroService;
-import com.pa165.ddtroops.service.RoleService;
+import com.pa165.ddtroops.api.dto.HeroDTO;
+import com.pa165.ddtroops.api.dto.RoleDTO;
+import com.pa165.ddtroops.api.service.HeroService;
+import com.pa165.ddtroops.api.service.RoleService;
 import static com.pa165.ddtroops.web.BaseActionBean.escapeHTML;
 import java.util.List;
 import java.util.Set;

@@ -6,9 +6,9 @@
 package com.pa165.ddtroops.serviceimpl;
 
 import com.pa165.ddtroops.dao.RoleDAO;
-import com.pa165.ddtroops.dto.RoleDTO;
+import com.pa165.ddtroops.api.dto.RoleDTO;
 import com.pa165.ddtroops.entity.Role;
-import com.pa165.ddtroops.service.RoleService;
+import com.pa165.ddtroops.api.service.RoleService;
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;

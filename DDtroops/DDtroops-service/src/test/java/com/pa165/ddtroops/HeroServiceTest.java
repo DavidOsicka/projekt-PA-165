@@ -6,7 +6,7 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.HeroDAO;
-import com.pa165.ddtroops.dto.HeroDTO;
+import com.pa165.ddtroops.api.dto.HeroDTO;
 import com.pa165.ddtroops.entity.Hero;
 import com.pa165.ddtroops.serviceimpl.HeroServiceImpl;
 import java.util.ArrayList;

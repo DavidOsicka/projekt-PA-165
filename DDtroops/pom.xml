@@ -10,8 +10,9 @@
     </properties>
     <modules>
         <module>DDtroops-dao</module>
+        <module>DDtroops-api</module>
         <module>DDtroops-service</module>
-    <module>DDtroops-web</module>
-  </modules>
+        <module>DDtroops-web</module>
+    </modules>
     <name>DDtroops</name>
 </project>

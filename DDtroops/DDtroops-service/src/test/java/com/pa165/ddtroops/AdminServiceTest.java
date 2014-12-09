@@ -7,7 +7,7 @@
 package com.pa165.ddtroops;
 
 import com.pa165.ddtroops.dao.AdminDAO;
-import com.pa165.ddtroops.dto.AdminDTO;
+import com.pa165.ddtroops.api.dto.AdminDTO;
 import com.pa165.ddtroops.entity.Admin;
 import com.pa165.ddtroops.serviceimpl.AdminServiceImpl;
 import java.util.ArrayList;

@@ -5,19 +5,19 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
           
     <mapping>
-        <class-a>com.pa165.ddtroops.dto.AdminDTO</class-a>
+        <class-a>com.pa165.ddtroops.api.dto.AdminDTO</class-a>
         <class-b>com.pa165.ddtroops.entity.Admin</class-b>
     </mapping>
     <mapping>
-        <class-a>com.pa165.ddtroops.dto.HeroDTO</class-a>
+        <class-a>com.pa165.ddtroops.api.dto.HeroDTO</class-a>
         <class-b>com.pa165.ddtroops.entity.Hero</class-b>
     </mapping>
     <mapping>
-        <class-a>com.pa165.ddtroops.dto.RoleDTO</class-a>
+        <class-a>com.pa165.ddtroops.api.dto.RoleDTO</class-a>
         <class-b>com.pa165.ddtroops.entity.Role</class-b>
     </mapping>
     <mapping>
-        <class-a>com.pa165.ddtroops.dto.TroopDTO</class-a>
+        <class-a>com.pa165.ddtroops.api.dto.TroopDTO</class-a>
         <class-b>com.pa165.ddtroops.entity.Troop</class-b>
     </mapping>
 </mappings>

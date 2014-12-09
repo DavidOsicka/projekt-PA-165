@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pa165.ddtroops.service;
+package com.pa165.ddtroops.api.service;
 
-import com.pa165.ddtroops.dto.RoleDTO;
+import com.pa165.ddtroops.api.dto.RoleDTO;
 import java.util.List;
 
 /**

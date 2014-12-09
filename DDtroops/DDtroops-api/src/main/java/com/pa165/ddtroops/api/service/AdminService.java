@@ -1,6 +1,6 @@
-package com.pa165.ddtroops.service;
+package com.pa165.ddtroops.api.service;
 
-import com.pa165.ddtroops.dto.AdminDTO;
+import com.pa165.ddtroops.api.dto.AdminDTO;
 import java.util.List;
 
 /**
