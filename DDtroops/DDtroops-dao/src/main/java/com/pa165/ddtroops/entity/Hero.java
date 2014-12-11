@@ -26,7 +26,7 @@ public class Hero {
     private String name;
 
     @ManyToMany
-    private Set<Role> role = new HashSet<Role>();;
+    private Set<Role> role = new HashSet<Role>();
 
     private int xp;
 
