@@ -31,35 +31,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Stripes ActionBean for handling role operations. 
+ * 
+ * @version 1.0,10/12/2014
  * @author Martin Peska
  */
 @UrlBinding("/roles/{$event}/{role.id}")
 public class RoleActionBean extends BaseActionBean{
-     final static Logger log = LoggerFactory.getLogger(RoleActionBean.class);
+    final static Logger log = LoggerFactory.getLogger(RoleActionBean.class);
     
     @SpringBean
     protected RoleService roleService;
-    
     @SpringBean
     protected HeroService heroService;
     
-    // part with displaying of roles
-    private List<RoleDTO> roles;
-    
-    @DefaultHandler
-    public Resolution list() {
-        log.debug("list()");
-        roles = roleService.retrieveAllRoles();
-        return new ForwardResolution("/role/list.jsp");
-    }
-
-    public List<RoleDTO> getRoles() {
-        return roles;
-    }
-
-    // adding a role
-
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "name", required = true),
             @Validate(on = {"add", "save"}, field = "description", required = true),
@@ -69,6 +54,34 @@ public class RoleActionBean extends BaseActionBean{
     })
     private RoleDTO role;
     
+    private List<RoleDTO> roles;    // part with displaying of roles
+    
+    /**
+     * Method switches to list page
+     * 
+     * @return action 
+     */
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
+        roles = roleService.retrieveAllRoles();
+        return new ForwardResolution("/role/list.jsp");
+    }
+
+    /**
+     * Method gets roles
+     * 
+     * @return roles
+     */
+    public List<RoleDTO> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Method validates role name
+     * 
+     * @param errors 
+     */
     @ValidationMethod(on = "add")
     public void createUniqueName(ValidationErrors errors) {
         List<RoleDTO> rls = roleService.retrieveAllRoles();
@@ -81,6 +94,10 @@ public class RoleActionBean extends BaseActionBean{
         }
     }
     
+    /**
+     * Method validates role name and identifier
+     * @param errors 
+     */
     @ValidationMethod(on = "save")
     public void updateUniqueName(ValidationErrors errors) {
         List<RoleDTO> rls = roleService.retrieveAllRoles();
@@ -93,13 +110,21 @@ public class RoleActionBean extends BaseActionBean{
         }
     }
     
-    
-
+    /**
+     * Method switches to create role page
+     * 
+     * @return action
+     */
     public Resolution create() {
         log.debug("create()");
         return new ForwardResolution("/role/create.jsp");
     }
 
+    /**
+     * Method creates role and switches to list page
+     * 
+     * @return action
+     */
     public Resolution add() {
         log.debug("add() role={}", role);
  
@@ -108,16 +133,29 @@ public class RoleActionBean extends BaseActionBean{
         return new RedirectResolution(this.getClass(), "list");
     }
 
+    /**
+     * Method gets role
+     * 
+     * @return role
+     */
     public RoleDTO getRole() {
         return role;
     }
 
+    /**
+     * Method sets role
+     * 
+     * @param role 
+     */
     public void setRole(RoleDTO role) {
         this.role = role;
     }
 
-    //--- part for deleting a role ----
-
+    /**
+     * Method deletes role and switches to list page
+     * 
+     * @return action
+     */
     public Resolution delete() {
         log.debug("delete()", role.getId());
         //only id is filled by the form
@@ -136,8 +174,9 @@ public class RoleActionBean extends BaseActionBean{
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    //--- part for editing a role ----
-
+    /**
+     * Method loads role from database according to identifier
+     */
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadRoleFromDatabase() {
         String ids = getContext().getRequest().getParameter("role.id");
@@ -145,11 +184,21 @@ public class RoleActionBean extends BaseActionBean{
         role = roleService.retrieveRoleById(Long.parseLong(ids));
     }
 
+    /**
+     * Method switches to edit page
+     * 
+     * @return action
+     */
     public Resolution edit() {
         log.debug("edit() role={}", role);
         return new ForwardResolution("/role/edit.jsp");
     }
-
+    
+    /**
+     * Method updates role and switches to list page
+     * 
+     * @return action
+     */
     public Resolution save() {
         log.debug("save() role={}", role);
         roleService.updateRole(role);

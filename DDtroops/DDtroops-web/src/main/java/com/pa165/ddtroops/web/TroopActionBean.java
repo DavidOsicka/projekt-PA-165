@@ -26,6 +26,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 /**
  * Stripes ActionBean for handling troop operations.
  * 
+ * @version 1.0,10/12/2014
  * @author Jakub Szotkowski
  */
 @UrlBinding("/troops/{$event}/{troop.id}")
@@ -34,34 +35,45 @@ public class TroopActionBean extends BaseActionBean {
     final static Logger log = LoggerFactory.getLogger(TroopActionBean.class);
 
     @SpringBean
-    protected HeroService heroService;
-    
+    protected HeroService heroService;  
     @SpringBean
     protected TroopService troopService;
-
-    //this part show list of troops
+    
     private List<TroopDTO> troops;
-
-    @DefaultHandler
-    public Resolution list() {
-        log.debug("list()");
-        troops = troopService.retrieveAllTroops();
-        return new ForwardResolution("/troop/list.jsp");
-    }
-
-    public List<TroopDTO> getTroops() {
-        return troops;
-    }
-
-    //part for create troop
-
+    
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "name", required = true),
             @Validate(on = {"add", "save"}, field = "mission", required = true),
             @Validate(on = {"add", "save"}, field = "amountOfGM", required = true, minvalue = 0)
     })
     private TroopDTO troop;
+
+    /**
+     * Method switches to list page
+     * 
+     * @return action
+     */
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
+        troops = troopService.retrieveAllTroops();
+        return new ForwardResolution("/troop/list.jsp");
+    }
     
+    /**
+     * Method gets troops
+     * 
+     * @return troops
+     */
+    public List<TroopDTO> getTroops() {
+        return troops;
+    }
+
+    /**
+     * Method validates troop name
+     * 
+     * @param errors 
+     */
     @ValidationMethod(on = "add")
     public void createUniqueName(ValidationErrors errors) {
         List<TroopDTO> trps = troopService.retrieveAllTroops();
@@ -74,6 +86,11 @@ public class TroopActionBean extends BaseActionBean {
         }    
     }
     
+    /**
+     * Method validates troop name and identifier
+     * 
+     * @param errors 
+     */
     @ValidationMethod(on = "save")
     public void updateUniqueName(ValidationErrors errors) {
                 List<TroopDTO> trps = troopService.retrieveAllTroops();
@@ -86,12 +103,21 @@ public class TroopActionBean extends BaseActionBean {
                 }    
     }
     
-    
+    /**
+     * Method switches to create page
+     * 
+     * @return action
+     */
     public Resolution create() {
         log.debug("create()");
         return new ForwardResolution("/troop/create.jsp");
     }
 
+    /**
+     * Method creates troop and switches to list page
+     * 
+     * @return action
+     */
     public Resolution add() {
         log.debug("add() troop={}", troop);
         troopService.createTroop(troop);
@@ -99,16 +125,29 @@ public class TroopActionBean extends BaseActionBean {
         return new RedirectResolution(this.getClass(), "list");
     }
 
+    /**
+     * Method gets troop
+     * 
+     * @return troop
+     */
     public TroopDTO getTroop() {
         return troop;
     }
 
+    /**
+     * Method sets troop
+     * 
+     * @param troop 
+     */
     public void setTroop(TroopDTO troop) {
         this.troop = troop;
     }
 
-    //part for delete troop
-
+    /**
+     * Method deletes troop and switches to list page
+     * 
+     * @return action
+     */
     public Resolution delete() {
         log.debug("delete()", troop.getId());
         //only id is filled by the form
@@ -127,8 +166,9 @@ public class TroopActionBean extends BaseActionBean {
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    //part for edit troop
-
+    /**
+     * Method loads troop from database according to identifier
+     */
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadTroopFromDatabase() {
         String ids = getContext().getRequest().getParameter("troop.id");
@@ -136,11 +176,21 @@ public class TroopActionBean extends BaseActionBean {
         troop = troopService.retrieveTroopById(Long.parseLong(ids));
     }
 
+    /**
+     * Method switches to edit page
+     * 
+     * @return action
+     */
     public Resolution edit() {
         log.debug("edit() troop={}", troop);
         return new ForwardResolution("/troop/edit.jsp");
     }
 
+    /**
+     * Method updates troop and switches to list page
+     * 
+     * @return action
+     */
     public Resolution save() {
         log.debug("save() troop={}", troop);
         troopService.updateTroop(troop);
