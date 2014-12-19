@@ -66,7 +66,7 @@ public class HeroRestApi {
      * Method will be used in next milestone for security :)
      */
     private void destroyAfterRequest(){
-        throw new UnsupportedOperationException("Method is not supported yet");
+        
     }
     
     /**
