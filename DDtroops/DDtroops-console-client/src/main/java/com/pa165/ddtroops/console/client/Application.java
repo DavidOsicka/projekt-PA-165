@@ -26,7 +26,7 @@ import org.json.JSONObject;
  * @author Jakub Szotkowski
  */
 public class Application {
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static ObjectMapper mapper = new ObjectMapper();    //mapping JSON object to DTOs
     
     public static void main(String[] args) {
         
@@ -70,11 +70,12 @@ public class Application {
         }
 
     }
-    
+    /**
+     * Pring all heroes to console window
+     */
     private static void getAllHeroes() {
         try {
             
-            //getAllHeroes
                 URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/hero");
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -100,11 +101,13 @@ public class Application {
                 System.out.println(e);
             }
     }
-    
+    /**
+     * Get specific hero with unique id
+     * 
+     * @param number hero id 
+     */
     private static void getHero(String number) {
         try {
-            //get hero
-            
             URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/hero/" + number);
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -128,10 +131,14 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Create new hero in database
+     * @param name  hero name
+     * @param race  hero race
+     * @param xp    hero experience
+     */
     private static void createHero(String name, String race, String xp) {
         try {
-            //create new hero
             HeroDTO h = new HeroDTO();
             h.setName(name);
             h.setRace(race);
@@ -161,10 +168,15 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Update hero in database
+     * @param id    hero id
+     * @param name  hero name
+     * @param race  hero race
+     * @param xp    hero experience
+     */
     private static void updateHero(String id, String name, String race, String xp) {
         try {
-            //update hero
             HeroDTO h = new HeroDTO();
             h.setId(Long.parseLong(id));
             h.setName(name);
@@ -194,11 +206,12 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Delete hero from database
+     * @param number    hero id 
+     */
     private static void deleteHero(String number) {
         try {
-            //delete hero
-            
             URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/hero/delete/" + number);
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -218,11 +231,11 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Print list of all roles
+     */
     private static void getAllRoles() {
         try {
-            
-            //getAllRoles
                 URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/role");
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -248,11 +261,12 @@ public class Application {
                 System.out.println(e);
             }
     }
-    
+    /**
+     * Get specific role with unique id
+     * @param number role id
+     */
     private static void getRole(String number) {
         try {
-            //get role
-            
             URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/role/" + number);
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -276,10 +290,16 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Create new role in database
+     * @param name  role id
+     * @param description   role desc
+     * @param energy    role energy
+     * @param attack    role attack
+     * @param defense   role defense
+     */
     private static void createRole(String name, String description, String energy, String attack, String defense) {
         try {
-            //create new role
             RoleDTO r = new RoleDTO();
             r.setName(name);
             r.setDescription(description);
@@ -311,10 +331,17 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Update role in database
+     * @param id    role id
+     * @param name  role name
+     * @param description   role desc
+     * @param energy    role energy
+     * @param attack    role attack
+     * @param defense   role defense
+     */
     private static void updateRole(String id, String name, String description, String energy, String attack, String defense) {
         try {
-            //update role
             RoleDTO r = new RoleDTO();
             r.setId(Long.parseLong(id));
             r.setName(name);
@@ -346,11 +373,12 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Delete role from database
+     * @param number    role id
+     */
     private static void deleteRole(String number) {
         try {
-            //delete role
-            
             URL url = new URL("http://localhost:8080/pa165/rest-jersey-server/role/delete/" + number);
                 URLConnection connection = url.openConnection();
                 connection.setDoOutput(true);
@@ -370,7 +398,9 @@ public class Application {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Print help info to console window
+     */
     private static void printHelp() {
         System.out.println("All commands must write as arguments.\n");
         System.out.println("Commands for hero:\n");
