@@ -13,7 +13,7 @@
         <module>DDtroops-api</module>
         <module>DDtroops-service</module>
         <module>DDtroops-web</module>
-        <module>DDtroops-soap</module>
+        <module>DDtroops-console-client</module>
     </modules>
     <name>DDtroops</name>
 </project>

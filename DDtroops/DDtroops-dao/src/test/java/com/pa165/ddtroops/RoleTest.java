@@ -86,19 +86,13 @@ public class RoleTest extends AbstractTestNGSpringContextTests {
     @Test
     public void retrieveAllRolesTest(){
         List<Role> allRoles = roleDAO.retrieveAllRoles();
-        if(allRoles.size() > 0){
-            for(Role r : allRoles){
-                roleDAO.deleteRole(r);
-            }
-        }
-        allRoles = roleDAO.retrieveAllRoles();
-        Assert.assertEquals(allRoles.size(),0);
+        
         
         for(int  i = 0; i < 5; i++){
             createSingleRole();
         }
         allRoles = roleDAO.retrieveAllRoles();
-        Assert.assertEquals(allRoles.size(),5);
+        Assert.assertTrue(allRoles.size()>=5);
     }
     
     @Test
