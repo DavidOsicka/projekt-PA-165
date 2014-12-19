@@ -32,8 +32,9 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 
 /**
  * REST Web Service
- *
- * @author Jakub
+ * 
+ * @version 1.0,19/12/2014
+ * @author Jakub Szotkowski
  */
 @Path("/role")
 public class RoleRestApi {
@@ -43,13 +44,19 @@ public class RoleRestApi {
     
     @Context
     private ServletContext context;
-    private RoleService roleService;
+    private RoleService roleService; // role services used from api
     private ObjectMapper mapper = new ObjectMapper();
-
+    
+    /*
+        Constructor
+    */
     public RoleRestApi() {
         APP_CONF.setNamespace("applicationContext-web");
     }
     
+    /**
+     * Method initializes context and role services
+     */
     private void initBeforeRequest() {
         APP_CONF.setServletContext(context);
         APP_CONF.refresh();
@@ -57,14 +64,27 @@ public class RoleRestApi {
         
     }
     
+    /**
+     * Method will be used in next milestone for security :)
+     */
     private void destroyAfterRequest(){
         
     }
     
+     /**
+     * Method resets heroes in role
+     * 
+     * @param r role
+     */
     private void resetRoleHeroes(RoleDTO r) {
         r.setHeroes(new HashSet<HeroDTO>());
     }
     
+    /**
+     * Method gets all roles with REST using JSON
+     * 
+     * @return JSON string containing list of roles
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllRoles() {
@@ -87,6 +107,13 @@ public class RoleRestApi {
         }
     }
     
+    /**
+     * Method gets role according to identifier
+     * 
+     * @param id role id
+     * 
+     * @return JSON string containing the role
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -105,6 +132,13 @@ public class RoleRestApi {
         }
     }
     
+    /**
+     * Method creates role with REST using JSON
+     * 
+     * @param json JSON string containing data about role
+     * 
+     * @return JSON string of created role
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -126,6 +160,13 @@ public class RoleRestApi {
         }
     }
     
+    /**
+     * Method updates role with REST using JSON
+     * 
+     * @param json JSON string of role
+     * 
+     * @return JSON string of updated role
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -150,6 +191,13 @@ public class RoleRestApi {
         }
     }
     
+    /**
+     * Method deletes role according to identifier
+     * 
+     * @param id role id
+     * 
+     * @return JSON string of deleted role
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete/{id}")

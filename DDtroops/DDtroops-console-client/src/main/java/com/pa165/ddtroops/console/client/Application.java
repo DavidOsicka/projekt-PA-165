@@ -20,10 +20,13 @@ import java.util.List;
 import org.json.JSONObject;
 
 /**
- *
- * @author Jakub
+ * Application class of web service console client
+ * 
+ * @version 1.0,19/12/2014
+ * @author Jakub Szotkowski
  */
 public class Application {
+    private static ObjectMapper mapper = new ObjectMapper();
     
     public static void main(String[] args) {
         
@@ -67,7 +70,6 @@ public class Application {
         }
 
     }
-    private static ObjectMapper mapper = new ObjectMapper();
     
     private static void getAllHeroes() {
         try {
@@ -383,6 +385,5 @@ public class Application {
         System.out.println("Create new role - createRole name description energy attack defense");
         System.out.println("Update role - updateRole id name description energy attack defense");
         System.out.println("Delete role - deleteRole id\n");
-    }
-    
+    }   
 }

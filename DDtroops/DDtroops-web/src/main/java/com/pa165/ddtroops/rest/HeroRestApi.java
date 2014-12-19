@@ -30,8 +30,9 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 
 /**
  * REST Web Service
- *
- * @author Jakub
+ * 
+ * @version 1.0,19/12/2014
+ * @author Jakub Szotkowski
  */
 @Path("/hero")
 public class HeroRestApi {
@@ -41,13 +42,19 @@ public class HeroRestApi {
     
     @Context
     private ServletContext context;
-    private HeroService heroService;
+    private HeroService heroService; // services used from api
     private ObjectMapper mapper = new ObjectMapper();
-
+    
+    /*
+        Constructor
+    */
     public HeroRestApi() {
         APP_CONF.setNamespace("applicationContext-web");
     }
     
+    /**
+     * Method initializes context and hero services
+     */
     private void initBeforeRequest() {
         APP_CONF.setServletContext(context);
         APP_CONF.refresh();
@@ -55,15 +62,28 @@ public class HeroRestApi {
         
     }
     
+    /**
+     * Method will be used in next milestone for security :)
+     */
     private void destroyAfterRequest(){
-        
+        throw new UnsupportedOperationException("Method is not supported yet");
     }
     
+    /**
+     * Method resets roles and troop
+     * 
+     * @param h hero
+     */
     private void resetHeroRolesAndTroop(HeroDTO h) {
         h.setRole(new HashSet<RoleDTO>());
         h.setTroop(null);
     }
     
+    /**
+     * Method gets all heroes with REST using JSON
+     * 
+     * @return JSON string containing list of heroes
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllHeroes() {
@@ -86,6 +106,13 @@ public class HeroRestApi {
         }
     }
     
+    /**
+     * Method gets hero according to identifier
+     * 
+     * @param id hero id
+     * 
+     * @return JSON string containing the hero
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -104,6 +131,13 @@ public class HeroRestApi {
         }
     }
     
+    /**
+     * Method creates hero with REST using JSON
+     * 
+     * @param json JSON string containing data about hero
+     * 
+     * @return JSON string of created hero
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -125,6 +159,13 @@ public class HeroRestApi {
         }
     }
     
+    /**
+     * Method updates hero with REST using JSON
+     * 
+     * @param json JSON string of hero
+     * 
+     * @return JSON string of updated hero
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -150,6 +191,13 @@ public class HeroRestApi {
         }
     }
     
+    /**
+     * Method deletes hero according to identifier
+     * 
+     * @param id hero id
+     * 
+     * @return JSON string of deleted hero
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete/{id}")
