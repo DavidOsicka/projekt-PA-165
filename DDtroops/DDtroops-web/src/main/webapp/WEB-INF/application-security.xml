@@ -1,0 +1,37 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+           
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/users*" access="permitAll"/>
+        <intercept-url pattern="/user*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/all*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+        <intercept-url pattern="/role" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/hero" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/admin" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/troop" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/*/list*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/hero/edit.jsp" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/role/edit.jsp" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/troop/edit.jsp" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/edit.jsp" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/*/create*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/login.jsp*" access="permitAll"/>
+        <intercept-url pattern="/*/" access="hasRole('ROLE_USER')" />
+        
+        <form-login login-page='/login.jsp' default-target-url="/index.jsp" />
+        <logout logout-success-url="/" delete-cookies="JSESSIONID"/>
+    </http>      
+        
+    <beans:import resource="user-service.xml"/>
+    
+    <authentication-manager erase-credentials="false">
+        <authentication-provider user-service-ref="userDetailsService"/>
+    </authentication-manager>
+    
+</beans:beans>

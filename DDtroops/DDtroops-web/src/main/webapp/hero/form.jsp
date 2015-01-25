@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <s:errors/>
 <table>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
     <tr>
         <th><s:label for="h1" name="hero.name"/></th>
         <td><s:text id="h1" name="hero.name"/></td>
@@ -14,6 +17,7 @@
         <th><s:label for="h3" name="hero.xp"/></th>
         <td><s:text id="h3" name="hero.xp"/></td>
     </tr>
+    </sec:authorize>
     <tr>
         <th><s:label for="h4" name="hero.troop"/></th>
         <td>

@@ -68,7 +68,10 @@ body {
     background: url(./Title.png) center;
 }
 
-
+#logout{
+    text-align: right;
+    color: yellow;
+}
 
 h1 {
     text-align: center;

@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <s:layout-render name="/layout.jsp" titlekey="role.list.title">
     <s:layout-component name="body">
@@ -21,8 +22,10 @@
                 <th><f:message key="role.energy"/></th>
                 <th><f:message key="role.attack"/></th>
                 <th><f:message key="role.defense"/></th>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <th></th>
                 <th></th>
+                </sec:authorize>
             </tr>
             <c:forEach items="${actionBean.roles}" var="role">
                 <tr>
@@ -32,7 +35,7 @@
                     <td><c:out value="${role.energy}"/></td>
                     <td><c:out value="${role.attack}"/></td>
                     <td><c:out value="${role.defense}"/></td>
- 
+                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <td>
                      <s:link beanclass="com.pa165.ddtroops.web.RoleActionBean" event="edit"><s:param name="role.id" value="${role.id}"/><f:message key="role.list.edit"/></s:link>
                     </td>
@@ -42,10 +45,12 @@
                             <s:submit name="delete"><f:message key="role.list.delete"/></s:submit>
                         </s:form>
                     </td>
+                     </sec:authorize>
                 </tr>
             </c:forEach>
         </table>
-                
+        <sec:authorize access="hasRole('ROLE_ADMIN')">        
         <s:link beanclass="com.pa165.ddtroops.web.RoleActionBean" event="create"><f:message key="role.list.create"/></s:link>
+        </sec:authorize>
     </s:layout-component>
 </s:layout-render>
