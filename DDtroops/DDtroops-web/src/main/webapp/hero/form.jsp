@@ -4,20 +4,29 @@
 
 <s:errors/>
 <table>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
-    <tr>
-        <th><s:label for="h1" name="hero.name"/></th>
-        <td><s:text id="h1" name="hero.name"/></td>
-    </tr>
-    <tr>
-        <th><s:label for="h2" name="hero.race"/></th>
-        <td><s:text id="h2" name="hero.race"/></td>
-    </tr>
-    <tr>
-        <th><s:label for="h3" name="hero.xp"/></th>
-        <td><s:text id="h3" name="hero.xp"/></td>
-    </tr>
-    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+    <c:choose>
+        <c:when test="${isAdmin}">
+            <tr>
+                <th><s:label for="h1" name="hero.name"/></th>
+                <td><s:text id="h1" name="hero.name"/></td>
+            </tr>
+            <tr>
+                <th><s:label for="h2" name="hero.race"/></th>
+                <td><s:text id="h2" name="hero.race"/></td>
+            </tr>
+            <tr>
+                <th><s:label for="h3" name="hero.xp"/></th>
+                <td><s:text id="h3" name="hero.xp"/></td>
+            </tr>
+        </c:when>
+        <c:otherwise>
+            <s:hidden name="hero.name" value="${hero.name}" />
+            <s:hidden name="hero.race" value="${hero.race}" />
+            <s:hidden name="hero.xp" value="${hero.xp}" />
+        </c:otherwise>
+    </c:choose>
+    
     <tr>
         <th><s:label for="h4" name="hero.troop"/></th>
         <td>

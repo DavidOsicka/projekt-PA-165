@@ -20,6 +20,9 @@
             expression="execution(* com.pa165.ddtroops.serviceimpl.*ServiceImpl.retrieve*(..))"
             access="ROLE_USER"/>
         <sec:protect-pointcut 
+            expression="execution(* com.pa165.ddtroops.serviceimpl.HeroServiceImpl.update*(..))"
+            access="ROLE_USER"/>
+        <sec:protect-pointcut 
             expression="execution(* com.pa165.ddtroops.serviceimpl.*ServiceImpl.create*(..))" 
             access="ROLE_ADMIN"/>
         <sec:protect-pointcut 

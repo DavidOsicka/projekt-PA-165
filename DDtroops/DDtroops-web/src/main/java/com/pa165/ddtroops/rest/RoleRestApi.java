@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pa165.ddtroops.api.dto.HeroDTO;
 import com.pa165.ddtroops.api.dto.RoleDTO;
 import com.pa165.ddtroops.api.service.RoleService;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -29,6 +30,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.exception.DataException;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * REST Web Service
@@ -47,6 +52,12 @@ public class RoleRestApi {
     private RoleService roleService; // role services used from api
     private ObjectMapper mapper = new ObjectMapper();
     
+    static Authentication authentication = 
+            new UsernamePasswordAuthenticationToken("rest", "rest", 
+                Arrays.asList(new SimpleGrantedAuthority[] 
+                    {new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")}));
+    
     /*
         Constructor
     */
@@ -61,14 +72,14 @@ public class RoleRestApi {
         APP_CONF.setServletContext(context);
         APP_CONF.refresh();
         roleService = APP_CONF.getBean(RoleService.class);
-        
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
     
     /**
-     * Method will be used in next milestone for security :)
+     * Destroy context after request
      */
     private void destroyAfterRequest(){
-        
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
     
      /**

@@ -25,6 +25,7 @@ public class DDtroopsUserService implements UserDetailsService{
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
     private static final UserDetails DEFAULT_USER = getUserInstance("user", "user");
     private static final UserDetails DEFAULT_ADMIN = getAdmin();
+    private static final UserDetails DEFAULT_REST = getRestUser();
     
     private File usersFile = new File(
             new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath())
@@ -56,6 +57,9 @@ public class DDtroopsUserService implements UserDetailsService{
         }
         if(string.equalsIgnoreCase("user")){
             return DEFAULT_USER;
+        }
+        if(string.equalsIgnoreCase("rest")){
+            return DEFAULT_REST;
         }
         return getUser(string);
     }
@@ -120,6 +124,13 @@ public class DDtroopsUserService implements UserDetailsService{
         Collection<GrantedAuthority> authorities = new ArrayList<>(1);
         authorities.add(new SimpleGrantedAuthority(ROLE_USER));
         return new User(name, password, authorities);
+    }
+
+    private static UserDetails getRestUser() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>(2);
+        authorities.add(new SimpleGrantedAuthority(ROLE_ADMIN));
+        authorities.add(new SimpleGrantedAuthority(ROLE_USER));
+        return new User("rest", "rest", authorities);
     }
 
     private boolean validUsername(String username) {
