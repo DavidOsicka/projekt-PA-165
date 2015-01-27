@@ -23,15 +23,15 @@
         <c:otherwise>
             <tr>
                 <th><s:label for="h1" name="hero.name"/></th>
-                <td><s:text id="h1" name="hero.name"/></td>
+                <td><s:text id="h1" name="hero.name" readonly="true"/></td>
             </tr>
             <tr>
                 <th><s:label for="h2" name="hero.race"/></th>
-                <td><s:text id="h2" name="hero.race"/></td>
+                <td><s:text id="h2" name="hero.race" readonly="true"/></td>
             </tr>
             <tr>
                 <th><s:label for="h3" name="hero.xp"/></th>
-                <td><s:text id="h3" name="hero.xp"/></td>
+                <td><s:text id="h3" name="hero.xp" readonly="true"/></td>
             </tr>
         </c:otherwise>
     </c:choose>

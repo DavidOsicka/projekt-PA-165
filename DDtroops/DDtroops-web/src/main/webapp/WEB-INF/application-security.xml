@@ -13,11 +13,10 @@
         <intercept-url pattern="/all*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
         <intercept-url pattern="/role" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/hero" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/hero*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
         <intercept-url pattern="/admin" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/troop" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/*/list*" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/hero/edit.jsp" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+        <intercept-url pattern="/hero/edit.jsp" access="hasAnyRole('ROLE_ADMIN')" />
         <intercept-url pattern="/role/edit.jsp" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/troop/edit.jsp" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/admin/edit.jsp" access="hasRole('ROLE_ADMIN')" />
