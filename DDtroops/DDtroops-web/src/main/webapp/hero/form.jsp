@@ -21,9 +21,18 @@
             </tr>
         </c:when>
         <c:otherwise>
-            <s:hidden name="hero.name" value="${hero.name}" />
-            <s:hidden name="hero.race" value="${hero.race}" />
-            <s:hidden name="hero.xp" value="${hero.xp}" />
+            <tr>
+                <th><s:label for="h1" name="hero.name"/></th>
+                <td><s:text id="h1" name="hero.name"/></td>
+            </tr>
+            <tr>
+                <th><s:label for="h2" name="hero.race"/></th>
+                <td><s:text id="h2" name="hero.race"/></td>
+            </tr>
+            <tr>
+                <th><s:label for="h3" name="hero.xp"/></th>
+                <td><s:text id="h3" name="hero.xp"/></td>
+            </tr>
         </c:otherwise>
     </c:choose>
     

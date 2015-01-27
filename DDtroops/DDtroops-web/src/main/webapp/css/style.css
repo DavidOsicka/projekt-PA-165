@@ -70,7 +70,8 @@ body {
 
 #logout{
     text-align: right;
-    color: yellow;
+    color: black;
+    margin-right: 50px;
 }
 
 h1 {
